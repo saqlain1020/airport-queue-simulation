@@ -57,6 +57,7 @@ const Home: React.FC<IProps> = () => {
                 <MenuItem value={1}>1x</MenuItem>
                 <MenuItem value={2}>2x</MenuItem>
                 <MenuItem value={5}>5x</MenuItem>
+                <MenuItem value={10}>10x</MenuItem>
               </TextField>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
