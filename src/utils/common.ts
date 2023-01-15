@@ -61,3 +61,7 @@ export function calcProbabilityPoisson(lambda: number, x: number) {
   }
   return sum;
 }
+
+export function generateRandomExponential(u: number) {
+  return u * Math.log(Math.random()) * -1;
+}

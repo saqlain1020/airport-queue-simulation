@@ -9,6 +9,7 @@ import {
   calculateMeanWaitingTimeInQueue,
   calcMeanWaitingTimeInSystem,
   calcProbabilityPoisson,
+  generateRandomExponential,
 } from "./utils/common";
 import Home from "./pages/Home/Home";
 import AppProvider from "./context/AppContext";
@@ -26,7 +27,7 @@ function App() {
 
   console.log(p, p0, lq, wq, w, l);
   console.log(calcProbabilityPoisson(lambda, 2));
-
+  console.log("Rand:",generateRandomExponential(2.45))
   return (
     <AppProvider>
       <Home />
