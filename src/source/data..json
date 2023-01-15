@@ -1,57 +1,55 @@
 {
-	"data": {
-		"name": "Boarding Queue",
-		"description": "Boarding Queue",
-		"type": "dataset",
-		"version": "1.0.0",
-		"schema": [
-			{
-				"name": "index",
-				"type": "int"
-			},
-			{
-				"name": "arrival",
-				"type": "int"
-			},
-			{
-				"name": "service",
-				"type": "int"
-			},
-			{
-				"name": "departure",
-				"type": "int"
-			},
-			{
-				"name": "waiting",
-				"type": "int"
-			},
-			{
-				"name": "server",
-				"type": "int"
-			}
-		],
-		"recordCount": 20,
-		"records": [
-			{ "index": 1, "arrival": 1673060710, "service": 4, "interArrival": 0, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 2, "arrival": 1673060890, "service": 4, "interArrival": 180, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 3, "arrival": 1673060890, "service": 6, "interArrival": 0, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 4, "arrival": 1673061610, "service": 4, "interArrival": 720, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 5, "arrival": 1673061910, "service": 2, "interArrival": 300, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 6, "arrival": 1673061970, "service": 9, "interArrival": 60, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 7, "arrival": 1673062090, "service": 4, "interArrival": 120, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 8, "arrival": 1673062330, "service": 3, "interArrival": 240, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 9, "arrival": 1673062750, "service": 5, "interArrival": 420, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 10, "arrival": 1673063110, "service": 9, "interArrival": 360, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 11, "arrival": 1673063350, "service": 9, "interArrival": 240, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 12, "arrival": 1673063530, "service": 2, "interArrival": 180, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 13, "arrival": 1673064010, "service": 4, "interArrival": 480, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 14, "arrival": 1673064070, "service": 8, "interArrival": 60, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 15, "arrival": 1673064430, "service": 7, "interArrival": 360, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 16, "arrival": 1673064730, "service": 6, "interArrival": 300, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 17, "arrival": 1673064970, "service": 8, "interArrival": 240, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 18, "arrival": 1673065330, "service": 4, "interArrival": 360, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 19, "arrival": 1673065630, "service": 3, "interArrival": 300, "departure": 5.5, "waiting": 0, "server": 1 },
-			{ "index": 20, "arrival": 1673066410, "service": 7, "interArrival": 780, "departure": 5.5, "waiting": 0, "server": 1 }
-		]
-	}
+	"name": "Boarding Queue",
+	"description": "Boarding Queue",
+	"type": "dataset",
+	"version": "1.0.0",
+	"schema": [
+		{
+			"name": "index",
+			"type": "int"
+		},
+		{
+			"name": "arrival",
+			"type": "int"
+		},
+		{
+			"name": "service",
+			"type": "int"
+		},
+		{
+			"name": "departure",
+			"type": "int"
+		},
+		{
+			"name": "waiting",
+			"type": "int"
+		},
+		{
+			"name": "server",
+			"type": "int"
+		}
+	],
+	"recordCount": 20,
+	"records": [
+		{ "index": 1, "arrival": 1673060710, "service": 4, "interArrival": 0, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 2, "arrival": 1673060890, "service": 4, "interArrival": 180, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 3, "arrival": 1673060890, "service": 6, "interArrival": 0, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 4, "arrival": 1673061610, "service": 4, "interArrival": 720, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 5, "arrival": 1673061910, "service": 2, "interArrival": 300, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 6, "arrival": 1673061970, "service": 9, "interArrival": 60, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 7, "arrival": 1673062090, "service": 4, "interArrival": 120, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 8, "arrival": 1673062330, "service": 3, "interArrival": 240, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 9, "arrival": 1673062750, "service": 5, "interArrival": 420, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 10, "arrival": 1673063110, "service": 9, "interArrival": 360, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 11, "arrival": 1673063350, "service": 9, "interArrival": 240, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 12, "arrival": 1673063530, "service": 2, "interArrival": 180, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 13, "arrival": 1673064010, "service": 4, "interArrival": 480, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 14, "arrival": 1673064070, "service": 8, "interArrival": 60, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 15, "arrival": 1673064430, "service": 7, "interArrival": 360, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 16, "arrival": 1673064730, "service": 6, "interArrival": 300, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 17, "arrival": 1673064970, "service": 8, "interArrival": 240, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 18, "arrival": 1673065330, "service": 4, "interArrival": 360, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 19, "arrival": 1673065630, "service": 3, "interArrival": 300, "departure": 5.5, "waiting": 0, "server": 1 },
+		{ "index": 20, "arrival": 1673066410, "service": 7, "interArrival": 780, "departure": 5.5, "waiting": 0, "server": 1 }
+	]
 }

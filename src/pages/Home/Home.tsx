@@ -72,7 +72,7 @@ const Home: React.FC<IProps> = () => {
             </Grid>
           </Grid>
           <div className="flex">
-            <Button sx={{mt:2}} variant="contained">Run Simulation</Button>
+            <Button sx={{mt:2}} onClick={() => 1} variant="contained">Run Simulation</Button>
           </div>
         </Card>
         <DetailsTable/>

@@ -9,7 +9,12 @@ import {
   calculateMeanWaitingTimeInQueue,
   calcMeanWaitingTimeInSystem,
   calcProbabilityPoisson,
-  generateRandomExponential,
+  serviceTimes, 
+  arrivalTimes,
+  calculateInterArrivalTimes,
+  calculateAverage,
+  calculateStandardDeviation,
+  generateRandomExponential
 } from "./utils/common";
 import Home from "./pages/Home/Home";
 import AppProvider from "./context/AppContext";
@@ -28,6 +33,34 @@ function App() {
   console.log(p, p0, lq, wq, w, l);
   console.log(calcProbabilityPoisson(lambda, 2));
   console.log("Rand:",generateRandomExponential(2.45))
+
+  //start from here
+  const interArrivals = calculateInterArrivalTimes(arrivalTimes);
+  const oldMean = calculateAverage(interArrivals);
+  const oldSD = calculateStandardDeviation(interArrivals);
+
+  let newMean = 330;
+  //calculte standard deviation from new mean
+  const newSD = calculateStandardDeviation(interArrivals, newMean);
+
+
+  console.log('old M S',oldMean, oldSD);
+  console.log('new M S',newMean, newSD);
+  
+  let newInterArrivals = [];
+  for(let i = 0; i < 20; i++) {
+    newInterArrivals.push(newSD * (interArrivals[i] - oldMean) / oldSD + newMean);
+  }
+  let interArrivalinMinutes = interArrivals.map((item => item/60))
+  let newInterArrivalsinMinutes = newInterArrivals.map((item => item/60))
+  
+  console.log('====================================');
+  console.log(interArrivalinMinutes)
+  console.log(newInterArrivalsinMinutes)
+  console.log(calculateAverage(newInterArrivals));
+  console.log('====================================');
+  //end here
+
   return (
     <AppProvider>
       <Home />

@@ -68,7 +68,7 @@ export function generateRandomExponential(u: number) {
 
 //an array of 20 values whose average is 5.5 and all values has to be distinct
 //this function will always gives an array whose average ranges from 4.7 to 6.2
-export function generateServiceTimes() {
+export function generateServiceTimes() :number[]{
   const serviceTimes = [];
   for (let i = 0; i < 20; i++) {
     serviceTimes.push(Math.floor(Math.random() * 10) + 1);
@@ -79,17 +79,11 @@ export function generateServiceTimes() {
 //thse are the service times in minutes
 export const serviceTimes: number[] = [4, 4, 6, 4, 2, 9, 4, 3, 5, 9, 9, 2, 4, 8, 7, 6, 8, 4, 3, 7];
 //this is unix timestamp with of arrival times
-//it's inter has to be calculated, then the average.
-export const arrivalTimes = [
-  1673060710, 1673060890, 1673060890, 1673061610, 1673061910, 1673061970, 1673062090, 1673062330, 1673062750,
-  1673063110, 1673063350, 1673063530, 1673064010, 1673064070, 1673064430, 1673064730, 1673064970, 1673065330,
-  1673065630, 1673066410,
-];
+//it's inter has to be calculated, then the average. 
+export const arrivalTimes = [1673060710, 1673060890, 1673061130, 1673061610, 1673061910, 1673061970, 1673062090, 1673062330, 1673062750, 1673063110, 1673063350, 1673063530, 1673064010, 1673064070, 1673064430, 1673064730, 1673064970, 1673065330, 1673065630, 1673066410]
 
-//calculate the difference of arrival times and store them in an array
-
-export const calculateInterArrivalTimes = (arrivals: number[]) => {
-  const arrivalTimeDifferences: number[] = [];
+export const calculateInterArrivalTimes = (arrivals:number[]):number[] =>  {
+  const arrivalTimeDifferences:number[] = []
   for (let i = 0; i < arrivals.length; i++) {
     if (i === 0) {
       arrivalTimeDifferences.push(0);
@@ -102,4 +96,15 @@ export const calculateInterArrivalTimes = (arrivals: number[]) => {
 
 export function calculateAverage(values: number[]): number {
   return values.reduce((a, b) => a + b, 0) / values.length;
+}
+export const calculateStandardDeviation = (values:number[], mean?:number):number => {
+  const avg = mean ? mean : calculateAverage(values);
+  const squareDiffs = values.map(value => {
+    const diff = value - avg!;
+    const sqrDiff = diff * diff;
+    return sqrDiff;
+  });
+  const avgSquareDiff = calculateAverage(squareDiffs);
+  const stdDev = Math.sqrt(avgSquareDiff);
+  return stdDev;
 }
