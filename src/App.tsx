@@ -14,7 +14,10 @@ import {
   calculateInterArrivalTimes,
   calculateAverage,
   calculateStandardDeviation,
-  generateRandomExponential
+  generateRandomExponential,
+  transformInterArrivalsToExactMean,
+  generateServiceTimes,
+  transformServiceTimeToExactMean
 } from "./utils/common";
 import Home from "./pages/Home/Home";
 import AppProvider from "./context/AppContext";
@@ -31,35 +34,19 @@ function App() {
   const l = caluMeanNumberOfCustomersInSystem(lambda, w);
 
   console.log(p, p0, lq, wq, w, l);
-  console.log(calcProbabilityPoisson(lambda, 2));
-  console.log("Rand:",generateRandomExponential(2.45))
+  console.log('old acc',calcProbabilityPoisson(lambda, 2));
+  console.log("Rand:",generateRandomExponential(2.45));
 
-  //start from here
-  const interArrivals = calculateInterArrivalTimes(arrivalTimes);
-  const oldMean = calculateAverage(interArrivals);
-  const oldSD = calculateStandardDeviation(interArrivals);
+  let newMeu = 300;
+  let newLamd = 330;
+  let { newInterArrivals } = transformInterArrivalsToExactMean(arrivalTimes, newMeu);
+  let randomServiceTimes = generateServiceTimes(20);
 
-  let newMean = 330;
-  //calculte standard deviation from new mean
-  const newSD = calculateStandardDeviation(interArrivals, newMean);
-
-
-  console.log('old M S',oldMean, oldSD);
-  console.log('new M S',newMean, newSD);
-  
-  let newInterArrivals = [];
-  for(let i = 0; i < 20; i++) {
-    newInterArrivals.push(newSD * (interArrivals[i] - oldMean) / oldSD + newMean);
-  }
-  let interArrivalinMinutes = interArrivals.map((item => item/60))
-  let newInterArrivalsinMinutes = newInterArrivals.map((item => item/60))
-  
-  console.log('====================================');
-  console.log(interArrivalinMinutes)
-  console.log(newInterArrivalsinMinutes)
-  console.log(calculateAverage(newInterArrivals));
-  console.log('====================================');
-  //end here
+  // let {newServiceTimes, newServiceTimesInMinutes} = transformServiceTimeToExactMean(randomServiceTimes, newLamd);
+  // console.log(randomServiceTimes);
+  // console.log(calculateAverage(newServiceTimes));
+  // console.log("newInterArrivals", newInterArrivals);
+  // console.log("newServiceTimes", newServiceTimesInMinutes);
 
   return (
     <AppProvider>
