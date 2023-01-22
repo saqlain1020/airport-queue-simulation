@@ -1,5 +1,6 @@
 import React from "react";
 import { Customer } from "../interfaces/record";
+import { calculateArrivalsFromInterArrivals, generateServiceTimes } from "../utils/common";
 
 export const AppContext = React.createContext({
   numberOfCustomers: 1,
@@ -10,6 +11,7 @@ export const AppContext = React.createContext({
   setSpeed: (value: number) => {},
   setNumberOfServers: (value: number) => {},
   setCustomerRecords: (value: Customer[]) => {},
+  generateArrivals: () => {},
 });
 
 interface Props {
@@ -22,6 +24,48 @@ const AppProvider: React.FC<Props> = ({ children }) => {
   const [numberOfServers, setNumberOfServers] = React.useState(1);
   const [customerRecords, setCustomerRecords] = React.useState<Customer[]>([]);
 
+  const generate = (interArrivals: number[], serviceTimes: number[]) => {
+    const arrivals = calculateArrivalsFromInterArrivals(interArrivals);
+    console.log("interArrivals", interArrivals);
+    console.log("arrivals", arrivals);
+    const servers = new Array(numberOfServers).fill(0);
+
+    const customers: Customer[] = [];
+
+    arrivals.forEach((_, i) => {
+      let serverNum = 0;
+      for (let index = 0; index < servers.length - 1; index++) {
+        if (servers[index] > servers[index + 1]) {
+          serverNum = index + 1;
+        }
+      }
+      let startTime = arrivals[i] < servers[serverNum] ? servers[serverNum] : arrivals[i];
+      let endTime = startTime + serviceTimes[i];
+      let arrival = arrivals[i];
+      let waitTime = startTime - arrival;
+      let obj: Customer = {
+        arrival,
+        interArrival: interArrivals[i],
+        serviceTime: serviceTimes[i],
+        server: serverNum,
+        startTime,
+        endTime,
+        waitTime,
+      };
+      servers[serverNum] += serviceTimes[i];
+      customers.push(obj);
+    });
+    console.table(customers);
+    setCustomerRecords(customers);
+  };
+
+  const generateArrivals = () => {
+    const serviceTimes = generateServiceTimes(numberOfCustomers);
+    const interArrivals = generateServiceTimes(numberOfCustomers);
+    interArrivals[0] = 0;
+    generate(interArrivals, serviceTimes);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -33,6 +77,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
         setNumberOfServers,
         setCustomerRecords,
         customerRecords,
+        generateArrivals,
       }}
     >
       {children}

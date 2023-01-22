@@ -9,6 +9,7 @@ import Card from "@mui/material/Card";
 import MenuItem from "@mui/material/MenuItem";
 import useApp from "../../hooks/useApp";
 import DetailsTable from "../../components/DetailsTable/DetailsTable";
+import { generateRandomExponential, generateServiceTimes } from "../../utils/common";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {},
@@ -18,7 +19,7 @@ interface IProps {}
 
 const Home: React.FC<IProps> = () => {
   const classes = useStyles();
-  const { numberOfCustomers, numberOfServers, setNumberOfServers, setNumberOfCustomers, speed, setSpeed } = useApp();
+  const { numberOfCustomers, numberOfServers, setNumberOfServers, setNumberOfCustomers, speed, setSpeed, generateArrivals } = useApp();
 
   return (
     <div className={classes.root}>
@@ -72,7 +73,7 @@ const Home: React.FC<IProps> = () => {
             </Grid>
           </Grid>
           <div className="flex">
-            <Button sx={{mt:2}} onClick={() => 1} variant="contained">Run Simulation</Button>
+            <Button sx={{mt:2}} onClick={generateArrivals} variant="contained">Run Simulation</Button>
           </div>
         </Card>
         <DetailsTable/>

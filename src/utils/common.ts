@@ -141,3 +141,16 @@ export function transformServiceTimeToExactMean(services: number[], newMean: num
 		newServiceTimesInMinutes: newServiceTimes.map((service) => service / 60),
 	};
 }
+
+
+export const calculateArrivalsFromInterArrivals = (interArrivals: number[])=>{
+	const arrivals: number[] = [];
+	for (let i = 0; i < interArrivals.length; i++) {
+		if (i === 0) {
+			arrivals.push(interArrivals[i]);
+		} else {
+			arrivals.push(arrivals[i - 1] + interArrivals[i]);
+		}
+	}
+	return arrivals;
+}

@@ -1,11 +1,11 @@
 export interface Customer {
-	index: number;
-	arrival: number;
-	service: number;
-	departure: number;
-	waiting: number;
-	interarrival: number;
-	server: number;
+	arrival?: number;
+	interArrival?: number;
+	serviceTime?: number;
+	server?: number;
+	startTime?: number;
+	endTime?: number;
+	waitTime?:number;  
 }
 
 export interface InterArrivals {
