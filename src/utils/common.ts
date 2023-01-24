@@ -60,7 +60,7 @@ export function calcProbabilityPoisson(lambda: number, x: number) {
 }
 
 export function generateRandomExponential(u: number) {
-	return u * Math.log(Math.random()) * -1;
+	return Math.floor(u * Math.log(Math.random()) * -1);
 }
 
 //this function will always gives an array whose average ranges from 4.7 to 6.2
@@ -71,6 +71,7 @@ export function generateServiceTimes(customerLength: number = 20): number[] {
 	}
 	return serviceTimes;
 }
+
 
 //thse are the service times in minutes
 export const serviceTimes: number[] = [4, 4, 6, 4, 2, 9, 4, 3, 5, 9, 9, 2, 4, 8, 7, 6, 8, 4, 3, 7];
@@ -87,7 +88,7 @@ export const calculateInterArrivalTimes = (arrivals: number[]): number[] => {
 		if (i === 0) {
 			arrivalTimeDifferences.push(0);
 		} else {
-			arrivalTimeDifferences.push(arrivals[i] - arrivals[i - 1]);
+			arrivalTimeDifferences.push((arrivals[i] - arrivals[i - 1])/60);
 		}
 	}
 	return arrivalTimeDifferences;

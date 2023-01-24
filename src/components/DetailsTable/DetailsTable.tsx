@@ -43,13 +43,16 @@ const DetailsTable: React.FC<IProps> = () => {
                 <b>Wait</b>
               </TableCell>
               <TableCell align="center">
+                <b>TT</b>
+              </TableCell>
+              <TableCell align="center">
                 <b>Server</b>
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {customerRecords.map((customer, index) => (
-              <TableRow>
+              <TableRow key={index}>
                 <TableCell align="center">{index + 1}</TableCell>
                 <TableCell align="center">{customer.arrival}</TableCell>
                 <TableCell align="center">{customer.interArrival}</TableCell>
@@ -57,6 +60,7 @@ const DetailsTable: React.FC<IProps> = () => {
                 <TableCell align="center">{customer.startTime}</TableCell>
                 <TableCell align="center">{customer.endTime}</TableCell>
                 <TableCell align="center">{customer.waitTime}</TableCell>
+                <TableCell align="center">{customer.turnaroundTime}</TableCell>
                 <TableCell align="center">{customer.server || 0 + 1}</TableCell>
               </TableRow>
             ))}

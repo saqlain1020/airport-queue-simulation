@@ -10,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import useApp from "../../hooks/useApp";
 import DetailsTable from "../../components/DetailsTable/DetailsTable";
 import { generateRandomExponential, generateServiceTimes } from "../../utils/common";
+import { mmc_calculation } from "../../utils/MMC";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {},
@@ -20,7 +21,7 @@ interface IProps {}
 const Home: React.FC<IProps> = () => {
   const classes = useStyles();
   const { numberOfCustomers, numberOfServers, setNumberOfServers, setNumberOfCustomers, speed, setSpeed, generateArrivals } = useApp();
-
+ 
   return (
     <div className={classes.root}>
       <AppBar sx={{ p: 1 }}>
