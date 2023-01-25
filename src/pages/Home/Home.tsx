@@ -11,6 +11,7 @@ import useApp from "../../hooks/useApp";
 import DetailsTable from "../../components/DetailsTable/DetailsTable";
 import PerformanceMeasures from "../../components/PerformanceMeasures/PerformanceMeasures";
 import InputParameters from "../../components/InputParameters/InputParameters";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -23,6 +24,7 @@ interface IProps {}
 const Home: React.FC<IProps> = () => {
   const classes = useStyles();
   const { performanceMeasures } = useApp();
+  const navigate = useNavigate();
 
   return (
     <div className={classes.root}>
@@ -31,7 +33,7 @@ const Home: React.FC<IProps> = () => {
           <Typography fontWeight={"bold"} variant="h5">
             Airport Security Boarding Queue Simulation
           </Typography>
-          <Button color="secondary" variant="contained">
+          <Button color="secondary" variant="contained" onClick={() => navigate("/custom")}>
             Custom Distributions
           </Button>
         </Container>
