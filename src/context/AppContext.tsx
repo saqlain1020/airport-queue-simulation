@@ -10,19 +10,20 @@ import {
 } from "../utils/common";
 import { mmc_calculation } from "../utils/MMC";
 
-interface IAppContex {}
+interface IAppContex {
+  numberOfCustomers: number;
+  speed: number;
+  numberOfServers: number;
+  customerRecords: Customer[];
+  setNumberOfCustomers: (value: number) => void;
+  setSpeed: (value: number) => void;
+  setNumberOfServers: (value: number) => void;
+  setCustomerRecords: (value: Customer[]) => void;
+  generateArrivals: () => void;
+  performanceMeasures: ReturnType<typeof mmc_calculation>;
+}
 
-export const AppContext = React.createContext({
-  numberOfCustomers: 1,
-  speed: 1,
-  numberOfServers: 1,
-  customerRecords: [] as Customer[],
-  setNumberOfCustomers: (value: number) => {},
-  setSpeed: (value: number) => {},
-  setNumberOfServers: (value: number) => {},
-  setCustomerRecords: (value: Customer[]) => {},
-  generateArrivals: () => {},
-});
+export const AppContext = React.createContext<IAppContex>({} as IAppContex);
 
 interface Props {
   children: React.ReactNode;
@@ -52,7 +53,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
     const arrivals = calculateArrivalsFromInterArrivals(interArrivals);
     const servers = new Array(numberOfServers).fill(0);
     const customers: Customer[] = [];
-    
+
     arrivals.forEach((_, i) => {
       let serverNum = 0;
       for (let index = 0; index < servers.length; index++) {
@@ -65,7 +66,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
       let endTime = startTime + serviceTimes[i];
       let arrival = arrivals[i];
       let waitTime = startTime - arrival;
-      let turnaroundTime =  endTime - arrival;
+      let turnaroundTime = endTime - arrival;
       let obj: Customer = {
         arrival,
         interArrival: interArrivals[i],
@@ -85,7 +86,6 @@ const AppProvider: React.FC<Props> = ({ children }) => {
   const generateArrivals = () => {
     // const serviceTimes = generateServiceTimes(numberOfCustomers);
     // const interArrivals = generateServiceTimes(numberOfCustomers);
-
 
     const serviceTimes: number[] = [];
     const interArrivals: number[] = [];
@@ -113,7 +113,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
         setCustomerRecords,
         customerRecords,
         generateArrivals,
-        // performanceMeasures,
+        performanceMeasures,
       }}
     >
       {children}
