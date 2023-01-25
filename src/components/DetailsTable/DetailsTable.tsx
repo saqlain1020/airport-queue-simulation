@@ -12,12 +12,25 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface IProps {}
 
 const DetailsTable: React.FC<IProps> = () => {
-  const { customerRecords } = useApp();
+  const { customerRecords, speed } = useApp();
+  const [records, setRecords] = React.useState<typeof customerRecords>([]);
   const classes = useStyles();
+
+  React.useEffect(() => {
+    setRecords([]);
+    const interval = setInterval(() => {
+      setRecords((prev) => {
+        while (prev.length !== customerRecords.length) return [...prev, customerRecords[prev.length]];
+        return prev;
+      });
+    }, 500 / speed);
+
+    return () => clearInterval(interval);
+  }, [customerRecords]);
 
   return (
     <Card className={classes.root} sx={{ mt: 2, p: 2 }}>
-      <TableContainer sx={{maxHeight: 400,}}>
+      <TableContainer sx={{ maxHeight: 400 }}>
         <Table>
           <TableHead>
             <TableRow>
@@ -51,7 +64,7 @@ const DetailsTable: React.FC<IProps> = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {customerRecords.map((customer, index) => (
+            {records.map((customer, index) => (
               <TableRow key={index}>
                 <TableCell align="center">{index + 1}</TableCell>
                 <TableCell align="center">{customer.arrival}</TableCell>

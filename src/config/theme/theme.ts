@@ -38,6 +38,14 @@ let lightTheme = createTheme({
         },
       },
     },
+    MuiCard:{
+      styleOverrides:{
+        root:{
+          boxShadow: "rgba(100, 100, 111, 0.1) 0px 7px 29px 0px",
+          borderRadius:10,
+        }
+      }
+    },
     MuiButton: {
       styleOverrides: {
         root: {

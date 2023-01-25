@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { DistributionInput } from "../interfaces";
 import { Customer } from "../interfaces/record";
 import {
   calculateArrivalsFromInterArrivals,
@@ -21,6 +22,10 @@ interface IAppContex {
   setCustomerRecords: (value: Customer[]) => void;
   generateArrivals: () => void;
   performanceMeasures: ReturnType<typeof mmc_calculation>;
+  distribution: "mmc" | "ggc" | "mgc";
+  setDistribution: React.Dispatch<React.SetStateAction<"mmc" | "ggc" | "mgc">>;
+  distributionInput: DistributionInput;
+  setDistributionInput: React.Dispatch<React.SetStateAction<DistributionInput>>;
 }
 
 export const AppContext = React.createContext<IAppContex>({} as IAppContex);
@@ -39,6 +44,10 @@ const AppProvider: React.FC<Props> = ({ children }) => {
   const [speed, setSpeed] = React.useState(1);
   const [numberOfServers, setNumberOfServers] = React.useState(1);
   const [customerRecords, setCustomerRecords] = React.useState<Customer[]>([]);
+  const [distribution, setDistribution] = React.useState<"mmc" | "ggc" | "mgc">("mmc");
+  const [distributionInput, setDistributionInput] = React.useState<DistributionInput>({
+    c: 1,
+  });
 
   const lamda = useMemo(() => 1 / MeanInterArival, []);
   const meu = useMemo(() => 1 / MeanServiceTime, []);
@@ -113,6 +122,10 @@ const AppProvider: React.FC<Props> = ({ children }) => {
         customerRecords,
         generateArrivals,
         performanceMeasures,
+        distribution,
+        setDistribution,
+        distributionInput,
+        setDistributionInput,
       }}
     >
       {children}

@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface IProps {
-  performanceMeasures: ReturnType<typeof mmc_calculation>;
+  performanceMeasures: Partial<ReturnType<typeof mmc_calculation>>;
 }
 
 const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
@@ -51,7 +51,7 @@ const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
               L:
             </Typography>
             <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
-              {performanceMeasures.l}
+              {performanceMeasures?.l}
             </Typography>
           </div>
           <Typography align="center" className={classes.detail}>
@@ -64,7 +64,7 @@ const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
               Lq:
             </Typography>
             <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
-              {performanceMeasures.lq}
+              {performanceMeasures?.lq}
             </Typography>
           </div>
           <Typography align="center" className={classes.detail}>
@@ -77,7 +77,7 @@ const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
               W:
             </Typography>
             <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
-              {performanceMeasures.w}
+              {performanceMeasures?.w}
             </Typography>
           </div>
           <Typography align="center" className={classes.detail}>
@@ -90,7 +90,7 @@ const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
               Wq:
             </Typography>
             <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
-              {performanceMeasures.wq}
+              {performanceMeasures?.wq}
             </Typography>
           </div>
           <Typography align="center" className={classes.detail}>
@@ -103,7 +103,7 @@ const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
               idle:
             </Typography>
             <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
-              {performanceMeasures.idle}
+              {performanceMeasures?.idle}
             </Typography>
           </div>
           <Typography align="center" className={classes.detail}>
@@ -116,7 +116,7 @@ const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
               P
             </Typography>
             <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
-              {performanceMeasures.p}
+              {performanceMeasures?.p}
             </Typography>
           </div>
           <Typography align="center" className={classes.detail}>

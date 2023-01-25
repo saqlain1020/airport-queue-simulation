@@ -52,7 +52,7 @@ export const mmc_calculation = (p: number, lambda: number, meu: number, c: numbe
   let w = calc_W(wq, meu);
   let l = calc_L(w, lambda);
   let idle = calc_idle(p);
-
+  
   let obj = {
     lq,
     wq,
