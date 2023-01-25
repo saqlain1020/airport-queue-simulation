@@ -14,12 +14,21 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   subHeading: {
     // width: 60,
+    color: theme.palette.primary.main,
   },
   wrapper: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
     gap: 20,
     marginTop: 20,
+  },
+  detail: {
+    fontSize: "12px !important",
+    color: "rgba(0,0,0,0.4) !important",
+    fontWeight: "bold !important",
+  },
+  value: {
+    color: theme.palette.success.main,
   },
 }));
 
@@ -36,52 +45,82 @@ const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
         Performance Measures
       </Typography>
       <div className={classes.wrapper}>
-        <Card sx={{ p: 1 }} className={classes.row}>
-          <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
-            L:
-          </Typography>
-          <Typography variant="h6" fontWeight={"bold"}>
-            {performanceMeasures.l}
-          </Typography>
-        </Card>
-        <Card sx={{ p: 1 }} className={classes.row}>
-          <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
-            Lq:
-          </Typography>
-          <Typography variant="h6" fontWeight={"bold"}>
-            {performanceMeasures.lq}
+        <Card sx={{ p: 1 }}>
+          <div className={classes.row}>
+            <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
+              L:
+            </Typography>
+            <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
+              {performanceMeasures.l}
+            </Typography>
+          </div>
+          <Typography align="center" className={classes.detail}>
+            Average Customers in System
           </Typography>
         </Card>
-        <Card sx={{ p: 1 }} className={classes.row}>
-          <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
-            W:
-          </Typography>
-          <Typography variant="h6" fontWeight={"bold"}>
-            {performanceMeasures.w}
-          </Typography>
-        </Card>
-        <Card sx={{ p: 1 }} className={classes.row}>
-          <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
-            Wq:
-          </Typography>
-          <Typography variant="h6" fontWeight={"bold"}>
-            {performanceMeasures.wq}
+        <Card sx={{ p: 1 }}>
+          <div className={classes.row}>
+            <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
+              Lq:
+            </Typography>
+            <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
+              {performanceMeasures.lq}
+            </Typography>
+          </div>
+          <Typography align="center" className={classes.detail}>
+            Average Customers in Queue
           </Typography>
         </Card>
-        <Card sx={{ p: 1 }} className={classes.row}>
-          <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
-            Idle:
-          </Typography>
-          <Typography variant="h6" fontWeight={"bold"}>
-            {performanceMeasures.idle}
+        <Card sx={{ p: 1 }}>
+          <div className={classes.row}>
+            <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
+              W:
+            </Typography>
+            <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
+              {performanceMeasures.w}
+            </Typography>
+          </div>
+          <Typography align="center" className={classes.detail}>
+            Average Waiting Customers in System
           </Typography>
         </Card>
-        <Card sx={{ p: 1 }} className={classes.row}>
-          <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
-            P:
+        <Card sx={{ p: 1 }}>
+          <div className={classes.row}>
+            <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
+              Wq:
+            </Typography>
+            <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
+              {performanceMeasures.wq}
+            </Typography>
+          </div>
+          <Typography align="center" className={classes.detail}>
+            Average Waiting Customers in Queue
           </Typography>
-          <Typography variant="h6" fontWeight={"bold"}>
-            {performanceMeasures.p}
+        </Card>
+        <Card sx={{ p: 1 }}>
+          <div className={classes.row}>
+            <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
+              idle:
+            </Typography>
+            <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
+              {performanceMeasures.idle}
+            </Typography>
+          </div>
+          <Typography align="center" className={classes.detail}>
+            Average Idle Time of Server
+          </Typography>
+        </Card>
+        <Card sx={{ p: 1 }}>
+          <div className={classes.row}>
+            <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
+              P
+            </Typography>
+            <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
+              {performanceMeasures.p}
+            </Typography>
+          </div>
+          <Typography align="center" className={classes.detail}>
+            Average Utilization of server
           </Typography>
         </Card>
       </div>
