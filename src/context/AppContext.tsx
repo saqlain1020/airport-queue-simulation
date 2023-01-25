@@ -48,7 +48,6 @@ const AppProvider: React.FC<Props> = ({ children }) => {
     [p, lamda, meu, numberOfServers]
   );
 
-  console.log("prf", performanceMeasures);
   const generate = (interArrivals: number[], serviceTimes: number[]) => {
     const arrivals = calculateArrivalsFromInterArrivals(interArrivals);
     const servers = new Array(numberOfServers).fill(0);

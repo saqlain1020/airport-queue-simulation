@@ -17,7 +17,7 @@ const DetailsTable: React.FC<IProps> = () => {
 
   return (
     <Card className={classes.root} sx={{ mt: 2, p: 2 }}>
-      <TableContainer>
+      <TableContainer sx={{maxHeight: 400,}}>
         <Table>
           <TableHead>
             <TableRow>

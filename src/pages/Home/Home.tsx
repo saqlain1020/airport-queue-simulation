@@ -9,8 +9,7 @@ import Card from "@mui/material/Card";
 import MenuItem from "@mui/material/MenuItem";
 import useApp from "../../hooks/useApp";
 import DetailsTable from "../../components/DetailsTable/DetailsTable";
-import { generateRandomExponential, generateServiceTimes } from "../../utils/common";
-import { mmc_calculation } from "../../utils/MMC";
+import PerformanceMeasures from "../../components/PerformanceMeasures/PerformanceMeasures";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {},
@@ -20,7 +19,7 @@ interface IProps {}
 
 const Home: React.FC<IProps> = () => {
   const classes = useStyles();
-  const { numberOfCustomers, numberOfServers, setNumberOfServers, setNumberOfCustomers, speed, setSpeed, generateArrivals } = useApp();
+  const { numberOfCustomers, numberOfServers, setNumberOfServers, setNumberOfCustomers, speed, setSpeed, generateArrivals, performanceMeasures } = useApp();
  
   return (
     <div className={classes.root}>
@@ -78,6 +77,7 @@ const Home: React.FC<IProps> = () => {
           </div>
         </Card>
         <DetailsTable/>
+        <PerformanceMeasures performanceMeasures={performanceMeasures}/>
       </Container>
     </div>
   );
