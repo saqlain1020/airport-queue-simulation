@@ -7,6 +7,7 @@ export interface Customer {
   endTime?: number;
   waitTime?: number;
   turnaroundTime?: number;
+  queueLength?: number;
 }
 
 export interface InterArrivals {
