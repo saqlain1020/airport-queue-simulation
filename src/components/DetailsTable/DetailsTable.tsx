@@ -15,12 +15,16 @@ const DetailsTable: React.FC<IProps> = () => {
   const { customerRecords, speed } = useApp();
   const [records, setRecords] = React.useState<typeof customerRecords>([]);
   const classes = useStyles();
+  const ref = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     setRecords([]);
     const interval = setInterval(() => {
       setRecords((prev) => {
-        while (prev.length !== customerRecords.length) return [...prev, customerRecords[prev.length]];
+        while (prev.length !== customerRecords.length) {
+          ref.current?.scroll(0, ref.current.scrollHeight);
+          return [...prev, customerRecords[prev.length]];
+        }
         return prev;
       });
     }, 500 / speed);
@@ -30,7 +34,7 @@ const DetailsTable: React.FC<IProps> = () => {
 
   return (
     <Card className={classes.root} sx={{ mt: 2, p: 2 }}>
-      <TableContainer sx={{ maxHeight: 400 }}>
+      <TableContainer ref={ref} sx={{ maxHeight: 400 }}>
         <Table>
           <TableHead>
             <TableRow>
