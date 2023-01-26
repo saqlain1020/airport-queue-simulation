@@ -61,8 +61,7 @@ const pdata = [
 const QueueLengthGraph: React.FC = () => {
   const classes = useStyles();
 
-  const { customerRecords } = useApp();
-  const [servers, setServers] = React.useState<Customer[][]>([]);
+  const { customerRecords, servers, setServers } = useApp();
 
 	React.useEffect(() => {
 		if (customerRecords.length > 0) {
@@ -118,52 +117,6 @@ const QueueLengthGraph: React.FC = () => {
           }
         });  
       })
-      /**
-       * 
-      server1.forEach((c: any, i) => {
-				let previousCustomer: Customer = {};
-
-        if (i === 0) {
-          tempS1.push({ ...c, queueLength: 0 });
-          return;
-        }
-				if (i > 0) {
-          previousCustomer = tempS1[i - 1];
-				}
-        if (c.arrival < previousCustomer.endTime!) {
-					tempS1.push({
-            ...c,
-						queueLength: previousCustomer.queueLength ? previousCustomer.queueLength + 1 : 1,
-					});
-          return;
-				} else {
-					tempS1.push({ ...c, queueLength: 0});
-				}
-			});
-			server2.forEach((c: any, i) => {
-				let previousCustomer: Customer = {};
-				if (i !== 0) {
-					previousCustomer = tempS2[i - 1];
-				}
-				if (i === 0) {
-					tempS2.push({ ...c, queueLength: 0 });
-					return;
-				}
-				if (c.arrival < previousCustomer.endTime!) {
-					tempS2.push({
-						...c,
-						queueLength: previousCustomer.queueLength ? previousCustomer.queueLength + 1 : 1,
-					});
-				} else {
-					tempS2.push({
-						...c,
-						queueLength: 0,
-					});
-				}
-			});
-      setServer1(tempS1);
-      setServer2(tempS2);
-       */
       console.log('================= SERVERS ===================');
       console.log(servers)
       console.log('================= SERVERS ===================');
@@ -174,12 +127,12 @@ const QueueLengthGraph: React.FC = () => {
 	return (
 		<>
     <Card sx={{ p: 2, mt: 2 }} className={classes.root}>
-      <Typography fontWeight={"bold"} variant="h4">
+      <Typography fontWeight={"bold"} variant="h5">
         Queue Length Graphs
       </Typography>
     {servers?.length > 0 && servers!.map((server, i) => 
     <div key={uuid()}>  
-      <Typography fontWeight={"bold"} variant="h6">
+      <Typography fontWeight={"bold"} variant="subtitle1">
         server {i}
       </Typography>
 			<ResponsiveContainer width="100%" aspect={3}>

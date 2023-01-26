@@ -26,6 +26,8 @@ interface IAppContex {
   setDistribution: React.Dispatch<React.SetStateAction<"mmc" | "ggc" | "mgc">>;
   distributionInput: DistributionInput;
   setDistributionInput: React.Dispatch<React.SetStateAction<DistributionInput>>;
+  servers: Customer[][];
+  setServers: React.Dispatch<React.SetStateAction<Customer[][]>>;
 }
 
 export const AppContext = React.createContext<IAppContex>({} as IAppContex);
@@ -48,6 +50,8 @@ const AppProvider: React.FC<Props> = ({ children }) => {
   const [distributionInput, setDistributionInput] = React.useState<DistributionInput>({
     c: 1,
   });
+  const [servers, setServers] = React.useState<Customer[][]>([]);
+
 
   const lamda = useMemo(() => 1 / MeanInterArival, []);
   const meu = useMemo(() => 1 / MeanServiceTime, []);
@@ -125,6 +129,8 @@ const AppProvider: React.FC<Props> = ({ children }) => {
         setDistribution,
         distributionInput,
         setDistributionInput,
+        servers,
+        setServers,
       }}
     >
       {children}

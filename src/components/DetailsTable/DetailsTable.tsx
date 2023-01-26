@@ -51,7 +51,7 @@ const DetailsTable: React.FC<IProps> = () => {
                 <b>Service</b>
               </TableCell>
               <TableCell align="center">
-                <b>Star</b>
+                <b>Start</b>
               </TableCell>
               <TableCell align="center">
                 <b>End</b>
