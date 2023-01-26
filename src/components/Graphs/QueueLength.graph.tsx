@@ -96,9 +96,6 @@ const QueueLengthGraph: React.FC = () => {
 					}
 				});
 			});
-			console.log("================= SERVERS ===================");
-			console.log(servers);
-			console.log("================= SERVERS ===================");
 			setQueueLengthServers(servers);
 		}
 	};

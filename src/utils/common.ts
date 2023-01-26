@@ -53,7 +53,6 @@ export function factorial(n: number): number {
 export function calcProbabilityPoisson(lambda: number, x: number) {
 	let sum = 0;
 	for (let i = 0; i <= x; i++) {
-		// console.log("sum", sum, lambda, factorial(i));
 		sum += (Math.E ** -lambda * lambda ** i) / factorial(i);
 	}
 	return sum;
