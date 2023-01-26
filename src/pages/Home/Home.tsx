@@ -8,7 +8,7 @@ import DetailsTable from "../../components/DetailsTable/DetailsTable";
 import PerformanceMeasures from "../../components/PerformanceMeasures/PerformanceMeasures";
 import InputParameters from "../../components/InputParameters/InputParameters";
 import { useNavigate } from "react-router-dom";
-import TATGraph from "../../components/Graphs/TATGraph";
+import QueueLengthGraph from "../../components/Graphs/QueueLengthGraph";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -39,7 +39,7 @@ const Home: React.FC<IProps> = () => {
         <InputParameters />
         <DetailsTable />
         <PerformanceMeasures performanceMeasures={performanceMeasures} />
-        <TATGraph/>
+        <QueueLengthGraph/>
       </Container>
     </div>
   );
