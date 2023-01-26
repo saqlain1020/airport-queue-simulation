@@ -26,8 +26,10 @@ interface IAppContex {
   setDistribution: React.Dispatch<React.SetStateAction<"mmc" | "ggc" | "mgc">>;
   distributionInput: DistributionInput;
   setDistributionInput: React.Dispatch<React.SetStateAction<DistributionInput>>;
-  servers: Customer[][];
-  setServers: React.Dispatch<React.SetStateAction<Customer[][]>>;
+  queueLengthServers: Customer[][];
+  setQueueLengthServers: React.Dispatch<React.SetStateAction<Customer[][]>>;
+  waitingInTheQueueServers: Customer[][];
+  setWaitingInTheQueueServers: React.Dispatch<React.SetStateAction<Customer[][]>>;
 }
 
 export const AppContext = React.createContext<IAppContex>({} as IAppContex);
@@ -50,7 +52,8 @@ const AppProvider: React.FC<Props> = ({ children }) => {
   const [distributionInput, setDistributionInput] = React.useState<DistributionInput>({
     c: 1,
   });
-  const [servers, setServers] = React.useState<Customer[][]>([]);
+  const [queueLengthServers, setQueueLengthServers] = React.useState<Customer[][]>([]);
+  const [waitingInTheQueueServers, setWaitingInTheQueueServers] = React.useState<Customer[][]>([]);
 
 
   const lamda = useMemo(() => 1 / MeanInterArival, []);
@@ -129,8 +132,10 @@ const AppProvider: React.FC<Props> = ({ children }) => {
         setDistribution,
         distributionInput,
         setDistributionInput,
-        servers,
-        setServers,
+        queueLengthServers,
+        setQueueLengthServers,
+        waitingInTheQueueServers,
+        setWaitingInTheQueueServers,
       }}
     >
       {children}

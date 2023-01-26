@@ -8,7 +8,8 @@ import DetailsTable from "../../components/DetailsTable/DetailsTable";
 import PerformanceMeasures from "../../components/PerformanceMeasures/PerformanceMeasures";
 import InputParameters from "../../components/InputParameters/InputParameters";
 import { useNavigate } from "react-router-dom";
-import QueueLengthGraph from "../../components/Graphs/QueueLengthGraph";
+import QueueLengthGraph from "../../components/Graphs/QueueLength.graph";
+import WaitingInTheQueueGraph from '../../components/Graphs/WaitingInTheQueue.graph';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -40,6 +41,7 @@ const Home: React.FC<IProps> = () => {
         <DetailsTable />
         <PerformanceMeasures performanceMeasures={performanceMeasures} />
         <QueueLengthGraph/>
+        <WaitingInTheQueueGraph/>
       </Container>
     </div>
   );

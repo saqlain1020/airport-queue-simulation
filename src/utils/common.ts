@@ -1,4 +1,4 @@
-import { InterArrivals as InterArrivalsType, ServiceTimes as ServiceTimesType } from "../interfaces/record";
+import { Customer, InterArrivals as InterArrivalsType, ServiceTimes as ServiceTimesType } from "../interfaces/record";
 
 // This gives value for p
 // => p
@@ -75,7 +75,7 @@ export function generateServiceTimes(customerLength: number = 20): number[] {
 
 //thse are the service times in minutes
 export const serviceTimes: number[] = [4, 4, 6, 4, 2, 9, 4, 3, 5, 9, 9, 2, 4, 8, 7, 6, 8, 4, 3, 7];
-//this is unix timestamp with of arrival times
+//this is unix timestamp of arrival times
 //it's inter has to be calculated, then the average.
 export const arrivalTimes = [
 	1673060710, 1673060890, 1673061130, 1673061610, 1673061910, 1673061970, 1673062090, 1673062330, 1673062750, 1673063110, 1673063350,
@@ -155,3 +155,23 @@ export const calculateArrivalsFromInterArrivals = (interArrivals: number[])=>{
 	}
 	return arrivals;
 }
+
+export const separateCustomerServerWise = (customerRecords:Customer[]) => {
+	let servers: Customer[][] = [];
+	let maxServerNumber = 0;
+
+	//get max server number
+	customerRecords.forEach((c: Customer) => (maxServerNumber = c.server! > maxServerNumber ? c.server! : maxServerNumber));
+
+	//array of array. each index contains customers for that server
+	for (let i = 0; i < customerRecords.length; i++) {
+		let server = customerRecords[i].server;
+		if (server) {
+			if (!servers[server]) {
+				servers[server] = [];
+			}
+			servers[server].push(customerRecords[i]);
+		}
+	}
+	return servers;
+};
