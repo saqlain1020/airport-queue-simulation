@@ -26,10 +26,8 @@ const InputDistributionParameters: React.FC<IProps> = () => {
     if (!distributionInput.meanInterArrival || !distributionInput.meanServiceTime || !distributionInput.c) return;
     const lamda = 1 / distributionInput.meanInterArrival;
     const meu = 1 / distributionInput.meanServiceTime;
-    const p = lamda / meu;
     if (distribution === "mmc") {
-        console.log(mmc_calculation(p, lamda, meu, distributionInput.c))
-      setPerformanceMeasures(mmc_calculation(p, lamda, meu, distributionInput.c));
+      setPerformanceMeasures(mmc_calculation(lamda, meu, distributionInput.c));
     } else if (distribution === "mgc") {
       if (!distributionInput.variance_S) return;
       setPerformanceMeasures(ggc_calculation(lamda, meu, distributionInput.c, "M", distributionInput.variance_S, 1));
@@ -47,7 +45,6 @@ const InputDistributionParameters: React.FC<IProps> = () => {
       );
     }
   };
-
 
   return (
     <Card sx={{ p: 2 }}>

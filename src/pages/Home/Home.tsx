@@ -3,17 +3,11 @@ import { makeStyles } from "@mui/styles";
 import { Theme, Container, Button } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Card from "@mui/material/Card";
-import MenuItem from "@mui/material/MenuItem";
 import useApp from "../../hooks/useApp";
 import DetailsTable from "../../components/DetailsTable/DetailsTable";
 import PerformanceMeasures from "../../components/PerformanceMeasures/PerformanceMeasures";
 import InputParameters from "../../components/InputParameters/InputParameters";
 import { useNavigate } from "react-router-dom";
-import { generateRandomExponential, generateServiceTimes } from "../../utils/common";
-import { mmc_calculation } from "../../utils/MMC";
 import TATGraph from "../../components/Graphs/TATGraph";
 
 const useStyles = makeStyles((theme: Theme) => ({

@@ -51,10 +51,9 @@ const AppProvider: React.FC<Props> = ({ children }) => {
 
   const lamda = useMemo(() => 1 / MeanInterArival, []);
   const meu = useMemo(() => 1 / MeanServiceTime, []);
-  const p = useMemo(() => lamda / (numberOfServers * meu), [meu, numberOfServers, lamda]);
   const performanceMeasures = useMemo(
-    () => mmc_calculation(p, lamda, meu, numberOfServers),
-    [p, lamda, meu, numberOfServers]
+    () => mmc_calculation(lamda, meu, numberOfServers),
+    [lamda, meu, numberOfServers]
   );
 
   const generate = (interArrivals: number[], serviceTimes: number[]) => {
