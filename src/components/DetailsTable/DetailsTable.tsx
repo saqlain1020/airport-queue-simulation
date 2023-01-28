@@ -19,6 +19,11 @@ const DetailsTable: React.FC<IProps> = () => {
 
   React.useEffect(() => {
     setRecords([]);
+    if (speed === 0) {
+      setRecords(customerRecords);
+      return;
+    }
+
     const interval = setInterval(() => {
       setRecords((prev) => {
         while (prev.length !== customerRecords.length) {

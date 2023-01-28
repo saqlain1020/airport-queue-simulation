@@ -50,6 +50,7 @@ const InputParameters: React.FC<IProps> = () => {
             <MenuItem value={2}>2x</MenuItem>
             <MenuItem value={5}>5x</MenuItem>
             <MenuItem value={10}>10x</MenuItem>
+            <MenuItem value={0}>Instant</MenuItem>
           </TextField>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>

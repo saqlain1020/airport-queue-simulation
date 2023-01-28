@@ -45,7 +45,7 @@ const MeanServiceTime = 5.4;
 
 const AppProvider: React.FC<Props> = ({ children }) => {
   const [numberOfCustomers, setNumberOfCustomers] = React.useState(1);
-  const [speed, setSpeed] = React.useState(1);
+  const [speed, setSpeed] = React.useState(0);
   const [numberOfServers, setNumberOfServers] = React.useState(1);
   const [customerRecords, setCustomerRecords] = React.useState<Customer[]>([]);
   const [distribution, setDistribution] = React.useState<"mmc" | "ggc" | "mgc">("mmc");
