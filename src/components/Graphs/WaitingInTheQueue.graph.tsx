@@ -41,20 +41,24 @@ const WaitingInTheQueueGraph = () => {
 						<Typography fontWeight={"bold"} variant="subtitle1">
 							server {i}
 						</Typography>
+
+						<div style={{paddingRight:20}}>
+
 						<ResponsiveContainer width="100%" aspect={3}>
-							<LineChart data={server} width={500} height={300} margin={{ top: 5, right: 300, left: 20, bottom: 5 }}>
+							<LineChart data={server} >
 								<CartesianGrid strokeDasharray="3 3" />
-								<XAxis dataKey="arrival" interval={0} tickFormatter={(value) => value}>
-									<Label value="Arrivals" position="bottom" />
+								<XAxis dataKey="arrival">
+									<Label value="Arrivals"position="insideBottom" dy={10} />
 								</XAxis>
-								<YAxis dataKey="waitTime" interval={0} tickFormatter={(value) => value}>
-									<Label value="Wait Time" angle={-90} position="left" dy="-10" />
+								<YAxis dataKey="waitTime">
+									<Label value="Wait Time" angle={-90} position="insideLeft" dx={10} dy={30} />
 								</YAxis>
-								<Tooltip contentStyle={{ backgroundColor: "#00627A", color: "white" }} />
-								<Legend />
-								<Line type="monotone" dataKey="waitTime" stroke="red" activeDot={{ r: 2 }} />
+								<Tooltip contentStyle={{ backgroundColor: "rgb(250,250,250)", color: "black" }} />
+								<Legend verticalAlign="top" align="right" iconType={"circle"} iconSize={10} />
+								<Line type="monotone" dataKey="waitTime" stroke="red" dot={false} />
 							</LineChart>
 						</ResponsiveContainer>
+						</div>
 					</div>
 				))}
 		</Card>
