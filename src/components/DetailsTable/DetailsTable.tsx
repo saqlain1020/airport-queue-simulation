@@ -83,7 +83,7 @@ const DetailsTable: React.FC<IProps> = () => {
                 <TableCell align="center">{customer.endTime}</TableCell>
                 <TableCell align="center">{customer.waitTime}</TableCell>
                 <TableCell align="center">{customer.turnaroundTime}</TableCell>
-                <TableCell align="center">{customer.server || 0 + 1}</TableCell>
+                <TableCell align="center">{customer.server}</TableCell>
               </TableRow>
             ))}
           </TableBody>

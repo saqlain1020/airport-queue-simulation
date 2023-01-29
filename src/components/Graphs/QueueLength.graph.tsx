@@ -109,8 +109,8 @@ const QueueLengthGraph: React.FC = () => {
         {queueLengthServers.length > 0 &&
           queueLengthServers.map((server, i) => (
             <div key={uuid()}>
-              <Typography fontWeight={"bold"} variant="subtitle1">
-                server {i}
+              <Typography color="primary" fontWeight={"bold"} variant="subtitle1" sx={{mt:1}}>
+                Server {i}
               </Typography>
               <div style={{ paddingRight: 20 }}>
                 <ResponsiveContainer width="100%" aspect={3}>

@@ -38,8 +38,8 @@ const WaitingInTheQueueGraph = () => {
 			{waitingInTheQueueServers.length > 0 &&
 				waitingInTheQueueServers.map((server, i) => (
 					<div key={uuid()}>
-						<Typography fontWeight={"bold"} variant="subtitle1">
-							server {i}
+						<Typography color="primary" fontWeight={"bold"} variant="subtitle1" sx={{mt:1}}>
+							Server {i}
 						</Typography>
 
 						<div style={{paddingRight:20}}>

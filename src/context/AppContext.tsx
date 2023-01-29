@@ -38,6 +38,12 @@ interface Props {
   children: React.ReactNode;
 }
 
+interface Server {
+  endTime: number;
+  serverNum: number;
+  customers: Customer[];
+}
+
 // const MeanInterArival = 12;
 // const MeanServiceTime = 15;
 const MeanInterArival = 4.75;
@@ -55,7 +61,6 @@ const AppProvider: React.FC<Props> = ({ children }) => {
   const [queueLengthServers, setQueueLengthServers] = React.useState<Customer[][]>([]);
   const [waitingInTheQueueServers, setWaitingInTheQueueServers] = React.useState<Customer[][]>([]);
 
-
   const lamda = useMemo(() => 1 / MeanInterArival, []);
   const meu = useMemo(() => 1 / MeanServiceTime, []);
   const performanceMeasures = useMemo(
@@ -65,18 +70,29 @@ const AppProvider: React.FC<Props> = ({ children }) => {
 
   const generate = (interArrivals: number[], serviceTimes: number[]) => {
     const arrivals = calculateArrivalsFromInterArrivals(interArrivals);
-    const servers = new Array(numberOfServers).fill(0);
+    const numberOfServers = 2;
+    let servers: Server[] = new Array(numberOfServers).fill({ endTime: 0 });
+    servers = servers.map((server, index) => ({ ...server, serverNum: index + 1, customers: [] }));
     const customers: Customer[] = [];
 
     arrivals.forEach((_, i) => {
+      let startTime = -1;
       let serverNum = 0;
-      for (let index = 0; index < servers.length; index++) {
-        if (servers[index] > servers[index + 1]) {
-          serverNum = index + 1;
+      for (let j = 0; j < servers.length; j++) {
+        const server = servers[j];
+        if (server.endTime <= arrivals[i]) {
+          startTime = arrivals[i];
+          serverNum = server.serverNum;
+          server.endTime = startTime + serviceTimes[i];
+          break;
         }
       }
-      // [0,0]
-      let startTime = arrivals[i] < servers[serverNum] ? servers[serverNum] : arrivals[i];
+      if (startTime === -1) {
+        let sorted = servers.sort((a, b) => a.endTime - b.endTime);
+        serverNum = sorted[0].serverNum;
+        startTime = sorted[0].endTime;
+        sorted[0].endTime = startTime + serviceTimes[i];
+      }
       let endTime = startTime + serviceTimes[i];
       let arrival = arrivals[i];
       let waitTime = startTime - arrival;
@@ -85,16 +101,17 @@ const AppProvider: React.FC<Props> = ({ children }) => {
         arrival,
         interArrival: interArrivals[i],
         serviceTime: serviceTimes[i],
-        server: serverNum + 1,
+        server: serverNum,
         startTime,
         endTime,
         waitTime,
         turnaroundTime,
       };
-      servers[serverNum] += serviceTimes[i];
       customers.push(obj);
+      servers.find((item) => item.serverNum === serverNum)?.customers.push(obj);
     });
     setCustomerRecords(customers);
+    return servers;
   };
 
   const generateArrivals = () => {
@@ -112,7 +129,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
     // const interArrivals = calculateInterArrivalTimes(orignalArivalTimes);
 
     interArrivals[0] = 0;
-    generate(interArrivals, serviceTimes);
+    return generate(interArrivals, serviceTimes);
   };
 
   return (
