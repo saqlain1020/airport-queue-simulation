@@ -8,6 +8,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     paddingBottom: 20,
   },
+  appHeading: {
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "11px !important",
+    },
+  },
+  appButton: {
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "10px !important",
+    },
+  },
 }));
 
 interface IProps {}
@@ -19,18 +29,17 @@ const CustomDistributions: React.FC<IProps> = () => {
   return (
     <div className={classes.root}>
       <AppBar sx={{ p: 1 }}>
-        <Container sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography fontWeight={"bold"} variant="h5">
+        <Container sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <Typography fontWeight={"bold"} variant="h5" className={classes.appHeading}>
             Airport Security Boarding Queue Simulation
           </Typography>
-          <Button color="secondary" variant="contained" onClick={() => navigate("/")}>
+          <Button color="secondary" variant="contained" onClick={() => navigate("/")} className={classes.appButton}>
             Predefined Distribution
           </Button>
         </Container>
       </AppBar>
       <Container sx={{ pt: "70px" }} maxWidth="lg">
         <InputDistributionParameters />
-        {/* <PerformanceMeasures performanceMeasures={performanceMeasures} /> */}
       </Container>
     </div>
   );

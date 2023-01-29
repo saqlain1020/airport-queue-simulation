@@ -9,11 +9,21 @@ import PerformanceMeasures from "../../components/PerformanceMeasures/Performanc
 import InputParameters from "../../components/InputParameters/InputParameters";
 import { useNavigate } from "react-router-dom";
 import QueueLengthGraph from "../../components/Graphs/QueueLength.graph";
-import WaitingInTheQueueGraph from '../../components/Graphs/WaitingInTheQueue.graph';
+import WaitingInTheQueueGraph from "../../components/Graphs/WaitingInTheQueue.graph";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     paddingBottom: 20,
+  },
+  appHeading: {
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "11px !important",
+    },
+  },
+  appButton: {
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "10px !important",
+    },
   },
 }));
 
@@ -21,17 +31,23 @@ interface IProps {}
 
 const Home: React.FC<IProps> = () => {
   const classes = useStyles();
-  const { performanceMeasures, numberOfCustomers, setNumberOfCustomers, speed, setSpeed, numberOfServers, setNumberOfServers, generateArrivals } = useApp();
+  const { performanceMeasures } = useApp();
   const navigate = useNavigate();
 
   return (
     <div className={classes.root}>
       <AppBar sx={{ p: 1 }}>
-        <Container sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography fontWeight={"bold"} variant="h5">
+        <Container sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <Typography fontWeight={"bold"} variant="h5" sx={{ fontSize: { xs: 11 } }} className={classes.appHeading}>
             Airport Security Boarding Queue Simulation
           </Typography>
-          <Button color="secondary" variant="contained" onClick={() => navigate("/custom")}>
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={() => navigate("/custom")}
+            sx={{ fontSize: { xs: 10 } }}
+            className={classes.appButton}
+          >
             Custom Distributions
           </Button>
         </Container>
@@ -40,8 +56,8 @@ const Home: React.FC<IProps> = () => {
         <InputParameters />
         <DetailsTable />
         <PerformanceMeasures performanceMeasures={performanceMeasures} />
-        <QueueLengthGraph/>
-        <WaitingInTheQueueGraph/>
+        <QueueLengthGraph />
+        <WaitingInTheQueueGraph />
       </Container>
     </div>
   );
