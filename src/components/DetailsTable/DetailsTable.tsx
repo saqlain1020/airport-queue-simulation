@@ -43,31 +43,31 @@ const DetailsTable: React.FC<IProps> = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="center">
+              <TableCell title="Customer Number"  align="center">
                 <b>C</b>#
               </TableCell>
-              <TableCell align="center">
+              <TableCell title="Arrival Time" align="center">
                 <b>Arrival</b>
               </TableCell>
-              <TableCell align="center">
+              <TableCell title="Interarrival Time" align="center">
                 <b>Interarrival</b>
               </TableCell>
-              <TableCell align="center">
+              <TableCell  title="Service Time" align="center">
                 <b>Service</b>
               </TableCell>
-              <TableCell align="center">
+              <TableCell title="Start Time" align="center">
                 <b>Start</b>
               </TableCell>
-              <TableCell align="center">
+              <TableCell title="End Time" align="center">
                 <b>End</b>
               </TableCell>
-              <TableCell align="center">
+              <TableCell title="Wait Time" align="center">
                 <b>Wait</b>
               </TableCell>
-              <TableCell align="center">
+              <TableCell title="Turnaround Time" align="center">
                 <b>TT</b>
               </TableCell>
-              <TableCell align="center">
+              <TableCell title="Server Number" align="center">
                 <b>Server</b>
               </TableCell>
             </TableRow>
