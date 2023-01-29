@@ -38,14 +38,13 @@ const Home: React.FC<IProps> = () => {
     <div className={classes.root}>
       <AppBar sx={{ p: 1 }}>
         <Container sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <Typography fontWeight={"bold"} variant="h5" sx={{ fontSize: { xs: 11 } }} className={classes.appHeading}>
+          <Typography fontWeight={"bold"} variant="h5" className={classes.appHeading}>
             Airport Security Boarding Queue Simulation
           </Typography>
           <Button
             color="secondary"
             variant="contained"
             onClick={() => navigate("/custom")}
-            sx={{ fontSize: { xs: 10 } }}
             className={classes.appButton}
           >
             Custom Distributions
