@@ -8,10 +8,6 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  AreaChart,
-  Area,
-  BarChart,
-  Bar,
   Label,
 } from "recharts";
 import { v4 as uuid } from "uuid";
@@ -25,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {},
 }));
 
-const pdata = [
+const sampleData = [
   {
     name: "Python",
     student: 13,
@@ -110,7 +106,7 @@ const QueueLengthGraph: React.FC = () => {
           queueLengthServers.map((server, i) => (
             <div key={uuid()}>
               <Typography color="primary" fontWeight={"bold"} variant="subtitle1" sx={{mt:1}}>
-                Server {i}
+                Server {i+1}
               </Typography>
               <div style={{ paddingRight: 20 }}>
                 <ResponsiveContainer width="100%" aspect={3}>
@@ -137,7 +133,7 @@ const QueueLengthGraph: React.FC = () => {
 				<AreaChart
 					width={500}
 					height={300}
-					data={pdata}
+					data={sampleData}
 					margin={{
 						top: 5,
 						right: 30,
@@ -158,7 +154,7 @@ const QueueLengthGraph: React.FC = () => {
 				<BarChart
 					width={500}
 					height={300}
-					data={pdata}
+					data={sampleData}
 					margin={{
 						top: 5,
 						right: 30,

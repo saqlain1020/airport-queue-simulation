@@ -57,10 +57,10 @@ const Home: React.FC<IProps> = () => {
         <InputParameters />
         <DetailsTable />
         <PerformanceMeasures performanceMeasures={performanceMeasures} />
+        <ServerUtilizationGraph/>
         <QueueLengthGraph />
         <WaitingInTheQueueGraph />
         <TurnaroundTimeGraph/>
-        <ServerUtilizationGraph/>
       </Container>
     </div>
   );

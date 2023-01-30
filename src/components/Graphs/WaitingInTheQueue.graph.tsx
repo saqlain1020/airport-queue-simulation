@@ -11,10 +11,6 @@ import {
 	Tooltip,
 	Legend,
 	ResponsiveContainer,
-	AreaChart,
-	Area,
-	BarChart,
-	Bar,
 	Label,
 } from "recharts";
 import { v4 as uuid } from "uuid";
@@ -39,7 +35,7 @@ const WaitingInTheQueueGraph = () => {
 				waitingInTheQueueServers.map((server, i) => (
 					<div key={uuid()}>
 						<Typography color="primary" fontWeight={"bold"} variant="subtitle1" sx={{mt:1}}>
-							Server {i}
+							Server {i+1}
 						</Typography>
 
 						<div style={{paddingRight:20}}>

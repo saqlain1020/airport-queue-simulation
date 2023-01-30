@@ -2,8 +2,22 @@ import React, { useEffect } from "react";
 import useApp from "../../hooks/useApp";
 import { separateCustomerServerWise } from "../../utils/common";
 import { Customer } from "../../interfaces/record";
+import { Typography, Card } from "@mui/material";
+import {
+	LineChart,
+	Line,
+	XAxis,
+	YAxis,
+	CartesianGrid,
+	Tooltip,
+	Legend,
+	ResponsiveContainer,
+	Label,
+} from "recharts";
+import { v4 as uuid } from "uuid";
 
 const ServerUtilizationGraph = () => {
+	const [serverUtilization, setServerUtilization] = React.useState<Customer[][]>([]);
 	/**
 	 * to calculate an average based off of an existing average and given new parameters for the resulting average?
 	 * newAve = ((oldAve*oldNumPoints) + x)/(oldNumPoints+1)
@@ -18,43 +32,10 @@ const ServerUtilizationGraph = () => {
 	useEffect(() => {
 		//follow the above steps and model data for server utilization
 		//add new attribute to each server i.e. arrivalAverage and serviceTimeAverage. at every arrival
-
 		let servers = separateCustomerServerWise(customerRecords);
     addArrivalAverageAndServiceTimeAverageAtEveryArrival(servers);
     addUtilizationAtEveryArrival(servers);
-		// servers[0].forEach((customer, index) => {
-		//   if (index === 0) {
-		//     servers[0][index] = { ...servers[0][index], average: 0 };
-		//     return;
-		//   }
-		//   const previousCustomer = servers[0][index - 1];
-		//   const previousAverage = previousCustomer.average ? previousCustomer.average : 0;
-		//   const previousNumPoints = previousCustomer.numPoints ? previousCustomer.numPoints : 0;
-		//   const newAverage = ((previousAverage * previousNumPoints) + customer.arrival) / (previousNumPoints + 1);
-		//   servers[0][index] = { ...servers[0][index], average: newAverage, numPoints: previousNumPoints + 1 };
-		// })
 
-		// servers = servers.filter((item) => item !== undefined ||  item !== null || item !== 0 || item !== Infinity || item !== '');
-		// console.log('serversserversserversservers',servers)
-		// if (servers.length > 0) {
-		// 	servers[0]?.forEach((customer, index) => {
-		// 		if (index === 0) {
-		// 			servers[0][index] = { ...servers[0][index], arrivalAverage: customer.arrival };
-		// 			servers[0][index] = { ...servers[0][index], serviceTimeAverage: customer.serviceTime };
-		// 			return;
-		// 		}
-		// 		const previousCustomer = servers[0][index - 1];
-		// 		const previousArrivalAverage = previousCustomer.arrivalAverage;
-		// 		const previousServiceTimeAverage = previousCustomer.serviceTimeAverage;
-		// 		const newArrivalAverage = (previousArrivalAverage! * index + customer.arrival!) / (index  + 1);
-		// 		const newServiceTimeAverage = (previousServiceTimeAverage! * index + customer.serviceTime!) / (index + 1);
-
-		// 		servers[0][index] = { ...servers[0][index], arrivalAverage: newArrivalAverage };
-		// 		servers[0][index] = { ...servers[0][index], serviceTimeAverage: newServiceTimeAverage };
-		// 	});
-		// 	console.table(servers[0]);
-		// }
-    console.log('serrrrrrrrrrrrrrrrr',servers);
 	}, [customerRecords]);
 
 	const addArrivalAverageAndServiceTimeAverageAtEveryArrival = (servers: Customer[][]) => {
@@ -81,7 +62,7 @@ const ServerUtilizationGraph = () => {
 			// console.log(servers);
 		}
 	};
-  //nned to fix, if arrival is zero then utilization is zero
+  //for the first arrival, the utlization will be zero because the customer has been served yet, it has just arrived
   const addUtilizationAtEveryArrival = (servers: Customer[][]) => {
     servers.forEach(server => {
       server.map((customer, index) => {
@@ -91,11 +72,41 @@ const ServerUtilizationGraph = () => {
         }
       })
     });
-    
+		setServerUtilization(servers);
 
   }
 
-	return <div>ServerUtilizationGraph</div>;
+	return(		<Card sx={{ p: 2, mt: 2 }}>
+		<Typography fontWeight={"bold"} variant="h5">
+			Server Utilization Graphs
+		</Typography>
+		{serverUtilization.length > 0 &&
+			serverUtilization.map((server, i) => (
+				<div key={uuid()}>
+					<Typography color="primary" fontWeight={"bold"} variant="subtitle1" sx={{mt:1}}>
+						Server {i+1}
+					</Typography>
+
+					<div style={{paddingRight:20}}>
+
+					<ResponsiveContainer width="100%" aspect={3}>
+						<LineChart data={server} >
+							<CartesianGrid strokeDasharray="3 3" />
+							<XAxis dataKey="arrival">
+								<Label value="Arrivals"position="insideBottom" dy={10} />
+							</XAxis>
+							<YAxis dataKey="utilizationAtArrival">
+								<Label value={`Server ${i+1} Utilization`} angle={-90} position="insideLeft" dx={10} dy={30} />
+							</YAxis>
+							<Tooltip contentStyle={{ backgroundColor: "rgb(250,250,250)", color: "black" }} />
+							<Legend verticalAlign="top" align="right" iconType={"circle"} iconSize={10} />
+							<Line type="monotone" dataKey="utilizationAtArrival" stroke="red" dot={false} />
+						</LineChart>
+					</ResponsiveContainer>
+					</div>
+				</div>
+			))}
+	</Card>);
 };
 
 export default ServerUtilizationGraph;
