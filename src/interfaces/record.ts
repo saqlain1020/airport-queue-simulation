@@ -8,6 +8,9 @@ export interface Customer {
   waitTime?: number;
   turnaroundTime?: number;
   queueLength?: number;
+  arrivalAverage?: number;
+  serviceTimeAverage?: number;
+  utilizationAtArrival?: number;
 }
 
 export interface InterArrivals {

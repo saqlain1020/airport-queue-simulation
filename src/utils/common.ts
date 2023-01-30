@@ -172,5 +172,6 @@ export const separateCustomerServerWise = (customerRecords:Customer[]) => {
 			servers[server].push(customerRecords[i]);
 		}
 	}
-	return servers;
+	//remove empty arrays and return
+	return servers.filter((item) => item !== undefined || item !== null || item !== "");
 };
