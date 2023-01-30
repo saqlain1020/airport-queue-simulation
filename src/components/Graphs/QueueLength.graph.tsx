@@ -116,7 +116,7 @@ const QueueLengthGraph: React.FC = () => {
                 <ResponsiveContainer width="100%" aspect={3}>
                   <LineChart data={server}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis fontSize={10} dataKey="arrival" tickFormatter={(value) => value}>
+                    <XAxis dataKey="arrival" >
                       <Label value="Arrivals" position="insideBottom" dy={10} />
                     </XAxis>
                     <YAxis dataKey="queueLength">

@@ -10,6 +10,7 @@ import InputParameters from "../../components/InputParameters/InputParameters";
 import { useNavigate } from "react-router-dom";
 import QueueLengthGraph from "../../components/Graphs/QueueLength.graph";
 import WaitingInTheQueueGraph from "../../components/Graphs/WaitingInTheQueue.graph";
+import TurnaroundTimeGraph from "../../components/Graphs/TurnaroundTime.graph";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -57,6 +58,7 @@ const Home: React.FC<IProps> = () => {
         <PerformanceMeasures performanceMeasures={performanceMeasures} />
         <QueueLengthGraph />
         <WaitingInTheQueueGraph />
+        <TurnaroundTimeGraph/>
       </Container>
     </div>
   );
