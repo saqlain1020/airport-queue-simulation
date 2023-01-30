@@ -1,21 +1,11 @@
 import React from "react";
 import useApp from "../../hooks/useApp";
 import { Typography, Card } from "@mui/material";
-import {
-	XAxis,
-	YAxis,
-	CartesianGrid,
-	Tooltip,
-	Legend,
-	ResponsiveContainer,
-	BarChart,
-	Bar,
-	Label,
-} from "recharts";
+import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, Label } from "recharts";
 import { v4 as uuid } from "uuid";
 
 const TurnaroundTimeGraph = () => {
-	const { customerRecords, waitingInTheQueueServers, setWaitingInTheQueueServers } = useApp();
+	const { customerRecords, waitingInTheQueueServers } = useApp();
 
 	React.useEffect(() => {
 		// if (customerRecords.length > 0) {
@@ -33,7 +23,7 @@ const TurnaroundTimeGraph = () => {
 				waitingInTheQueueServers.map((server, i) => (
 					<div key={uuid()}>
 						<Typography color="primary" fontWeight={"bold"} variant="subtitle1" sx={{ mt: 1 }}>
-							Server {i+1}
+							Server {i + 1}
 						</Typography>
 
 						<div style={{ paddingRight: 20 }}>
