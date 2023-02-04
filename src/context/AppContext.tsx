@@ -70,7 +70,6 @@ const AppProvider: React.FC<Props> = ({ children }) => {
 
   const generate = (interArrivals: number[], serviceTimes: number[]) => {
     const arrivals = calculateArrivalsFromInterArrivals(interArrivals);
-    const numberOfServers = 2;
     let servers: Server[] = new Array(numberOfServers).fill({ endTime: 0 });
     servers = servers.map((server, index) => ({ ...server, serverNum: index + 1, customers: [] }));
     const customers: Customer[] = [];
