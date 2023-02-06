@@ -58,8 +58,6 @@ const ServerUtilizationGraph = () => {
 					server[index] = { ...server[index], serviceTimeAverage: newServiceTimeAverage };
 				});
 			});
-
-			// console.log(servers);
 		}
 	};
   //for the first arrival, the utlization will be zero because the customer has been served yet, it has just arrived
