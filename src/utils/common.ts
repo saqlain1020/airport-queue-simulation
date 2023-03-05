@@ -167,7 +167,6 @@ export const calculateArrivalsFromInterArrivals = (interArrivals: number[]) => {
 export const separateCustomerServerWise = (customerRecords: Customer[]) => {
   let servers: Customer[][] = [];
   let maxServerNumber = 0;
-
   //get max server number
   customerRecords.forEach(
     (c: Customer) => (maxServerNumber = c.server! > maxServerNumber ? c.server! : maxServerNumber)
@@ -187,13 +186,68 @@ export const separateCustomerServerWise = (customerRecords: Customer[]) => {
   return servers.filter((item) => item !== undefined || item !== null || item !== "");
 };
 
-
 // Random color generate
 export function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
+  var letters = "0123456789ABCDEF";
+  var color = "#";
   for (var i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
 }
+
+// Generate random colors which contrasts with black background
+export function getRandomContrastingColor() {
+  var letters = "0123456789ABCDEF";
+  var color = "#";
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  // Check if color is dark or light
+  var c = color.substring(1); // strip #
+  var rgb = parseInt(c, 16); // convert rrggbb to decimal
+  var r = (rgb >> 16) & 0xff; // extract red
+  var g = (rgb >> 8) & 0xff; // extract green
+  var b = (rgb >> 0) & 0xff; // extract blue
+
+  var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+
+  if (luma < 40) {
+    color = getRandomContrastingColor();
+  }
+  return color;
+}
+
+const colors = [
+  "#D0B77A",
+  "#DC3BEF",
+  "#5ECB83",
+  "#C9442F",
+  "#947269",
+  "#6BEDD1",
+  "#7D6DF5",
+  "#3AB26C",
+  "#829A1D",
+  "#A473CF",
+  "#3AEB28",
+  "#9DC904",
+  "#B6FD63",
+  "#2A9241",
+  "#EAA9AC",
+  "#CACC08",
+  "#AFC1F4",
+  "#F471B6",
+  "#51CAF1",
+];
+
+export function* getColorGenerator() {
+  let index = 0;
+  while (true) {
+    yield colors[index];
+    index = (index + 1) % colors.length;
+  }
+}
+const getColorGeneratorInitialized = getColorGenerator();
+export const getColor = () => {
+  return getColorGeneratorInitialized.next().value!;
+};

@@ -1,4 +1,5 @@
 export interface Customer {
+  id:number;
   arrival?: number;
   interArrival?: number;
   serviceTime?: number;

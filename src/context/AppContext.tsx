@@ -104,6 +104,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
       let waitTime = startTime - arrival;
       let turnaroundTime = endTime - arrival;
       let obj: Customer = {
+        id: i + 1,
         arrival,
         interArrival: interArrivals[i],
         serviceTime: serviceTimes[i],
@@ -162,7 +163,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
       const obj = arr[server - 1];
       obj.endTime = item.endTime;
       obj.serviceTime += item.serviceTime;
-      obj.utilizationArr.push({ utilization: (obj.serviceTime / totalServiceTime)*100, arrival: item.arrival! });
+      obj.utilizationArr.push({ utilization: (obj.serviceTime / totalServiceTime) * 100, arrival: item.arrival! });
     });
 
     arr = arr.map((item) => {
@@ -173,7 +174,6 @@ const AppProvider: React.FC<Props> = ({ children }) => {
     });
     return arr;
   }, [customerRecords]);
-  console.log(serverSpecs);
 
   return (
     <AppContext.Provider

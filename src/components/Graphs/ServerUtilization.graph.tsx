@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import useApp from "../../hooks/useApp";
-import { getRandomColor, separateCustomerServerWise } from "../../utils/common";
+import { getColor, getRandomColor, getRandomContrastingColor, separateCustomerServerWise } from "../../utils/common";
 import { Customer } from "../../interfaces/record";
 import { Typography, Card } from "@mui/material";
 import {
@@ -82,12 +82,21 @@ const ServerUtilizationGraph = () => {
       </Typography>
 
       <div>
-        <div style={{ paddingRight: 20 ,paddingTop:50}}>
+        <div style={{ paddingRight: 20, paddingTop: 50 }}>
           <ResponsiveContainer width="100%" aspect={3}>
             <ScatterChart>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="x" type="number" name="arrival" unit="min" />
-              <YAxis dataKey="y" type="number" name="utilization" unit="%" />
+              <YAxis dataKey="y" type="number" name="utilization" unit="%">
+                <Label
+                  value="Utlilzation %"
+                  angle={-90}
+                  position="insideLeft"
+                  dx={0}
+                  dy={30}
+                  fill={getColor()}
+                />
+              </YAxis>
               <Tooltip cursor={{ strokeDasharray: "3 3" }} />
               <Legend />
               {serverSpecs.length > 0 &&
@@ -96,7 +105,7 @@ const ServerUtilizationGraph = () => {
                     key={uuid()}
                     name={`Server ${i + 1} Arrival (min)`}
                     data={server.utilizationArr.map((item) => ({ x: item.arrival, y: item.utilization }))}
-                    fill={getRandomColor()}
+                    fill={getColor()}
                     line={{ strokeWidth: 3 }}
                   />
                 ))}
