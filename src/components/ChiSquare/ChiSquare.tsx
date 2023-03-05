@@ -8,7 +8,7 @@ import Button from "@mui/material/Button/Button";
 import { useNavigate } from "react-router-dom";
 import useApp from "../../hooks/useApp";
 import source from "./../../source/data.json";
-import { generateNormalDistribution } from "../../utils/common";
+import { arrivalTimes, calculateInterArrivalTimes, chiSquare, chiSquareObservedFreqs, generateNormalDistribution, getExpectedFrequencies, getExpectedFrequenciesAndSummation, MLE, probabilityDistribution, serviceTimes } from "../../utils/common";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {},
@@ -30,6 +30,49 @@ const ChiSquare: React.FC<IProps> = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const { customerRecords, setNumberOfCustomers, numberOfCustomers, generateArrivals } = useApp();
+
+  /**
+   * @Mutahhir
+   * @dev use debugger to see the values of the variables
+   */
+  useEffect(() => {
+
+    console.log('======================================')
+    const interArrivals = calculateInterArrivalTimes(arrivalTimes);
+
+    // Here, numIntervals represents the number of intervals to use for the chi-squared test.
+    //We are using 5 intervals in this case.
+    const numIntervals = 5;
+    console.log('ineer', interArrivals)
+
+    const interArrivalObservedFreqs = chiSquareObservedFreqs(interArrivals, numIntervals);
+    const serviceTimeObservedFreqs = chiSquareObservedFreqs(serviceTimes, numIntervals);
+    
+    const observedFrequenciesSummation1 = interArrivalObservedFreqs.reduce((acc, el) => acc + el, 0); //inter arrival
+    const observedFrequenciesSummation2 = serviceTimeObservedFreqs.reduce((acc, el) => acc + el, 0);  //service time
+
+    
+    const {MLEs:interArrivalMLE, sum:interObservedSum} = MLE(interArrivalObservedFreqs);
+    const {MLEs:serviceTimeMLE, sum:serviceObservedSum} = MLE(serviceTimeObservedFreqs);
+    
+    const calculatedLambdaForInterArrivalTime = interObservedSum / observedFrequenciesSummation1;
+    const calculatedLambdaForServiceTime = serviceObservedSum / observedFrequenciesSummation2;
+    
+    const InterArrivalprobabilities = Array(numIntervals).fill(0).map((_, index) => probabilityDistribution(calculatedLambdaForInterArrivalTime, index))
+    const serviceTimeprobabilities = Array(numIntervals).fill(0).map((_, index) => probabilityDistribution(calculatedLambdaForServiceTime, index))
+    
+    const {expectedFreqs:interArrivalExpectedFrequencies, sum:sumOfInterArrivalExpected} = getExpectedFrequenciesAndSummation(observedFrequenciesSummation1, InterArrivalprobabilities);
+    const {expectedFreqs:serviceTimeExpectedFrequencies, sum:sumOserviceTimeExpected} = getExpectedFrequenciesAndSummation(observedFrequenciesSummation2, serviceTimeprobabilities);
+    
+    const interArrivalChiSquare = chiSquare(interArrivalExpectedFrequencies, interArrivalObservedFreqs);
+    const serviceTimeChiSquare = chiSquare(serviceTimeExpectedFrequencies, serviceTimeObservedFreqs);
+    
+    // debugger;
+    console.log('interArrivalChiSquare', interArrivalChiSquare)
+    console.log('serviceTimeChiSquare', serviceTimeChiSquare)
+    
+    console.log('======================================')
+  },[])
 
   useEffect(() => {
     // @ts-ignore

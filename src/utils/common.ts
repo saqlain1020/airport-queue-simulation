@@ -284,3 +284,126 @@ export const generateNormalDistribution = (numOfCustomers: number) => {
   }
   return { normalDistributionService, normalDistributionInter };
 };
+
+
+//usage chiSquareTableee.get(dof);
+const chiSquareTableee = new Map([
+	[1, 3.8415],
+	[2, 5.9915],
+	[3, 7.8147],
+	[4, 9.4877],
+	[5, 11.0705],
+	[6, 12.5916],
+	[7, 14.0671],
+	[8, 15.5073],
+	[9, 16.919],
+	[10, 18.307],
+	[11, 19.6751],
+	[12, 21.0261],
+	[13, 22.362],
+	[14, 23.6848],
+	[15, 25.005],
+	[16, 26.2962],
+	[17, 27.5871],
+	[18, 28.8693],
+	[19, 30.1435],
+	[20, 31.4104],
+	[21, 32.6706],
+	[22, 33.9244],
+	[23, 35.1725],
+	[24, 36.415],
+	[25, 37.6525],
+	[26, 38.8851],
+	[27, 40.1133],
+	[28, 41.3372],
+	[29, 42.557],
+	[30, 51.8051],
+	[40, 63.1671],
+	[50, 74.397],
+	[60, 85.5271],
+	[70, 96.5782],
+	[80, 107.565],
+	[90, 118.498],
+	[100, 124.342],
+]);
+
+
+export const chiSquareObservedFreqs = (data:number[], numBins:number) =>  {
+	// Calculate the range of the data
+  const dataMin = Math.min(...data);
+  const dataMax = Math.max(...data);
+	
+	// if max interArrival is 13, and min is 0 and no. of bins = 5 then binWidth = 2.6
+  // Calculate the bin width
+  const binWidth:number = (dataMax - dataMin) / numBins;
+
+  // Initialize an array to hold the observed frequencies
+  const observedFreqs:number[] = new Array(numBins).fill(0);
+
+  // Loop through the data and increment the appropriate frequency bin
+  for (const datum of data) {
+    const binIndex = Math.floor((datum - dataMin) / binWidth);
+		if (binIndex < numBins) {
+      observedFreqs[binIndex]++;
+    }
+  }
+
+  return observedFreqs;
+}
+
+/**
+ * @see MLE for poisson distribution goodness of fit test
+ */
+export const MLE = (observeFrquencies:number[]) => {
+	let MLEs:number[] = [];
+	let sum = 0;
+	for(let i = 0; i < observeFrquencies.length; i++) {
+		MLEs.push(observeFrquencies[i] * i);
+		sum += MLEs[i];
+	}
+	return {MLEs, sum};
+}
+
+
+//use this in loop till the bin count
+//explicitly pass the lambda, using (MLE /  Σ observedFrequency)
+export const probabilityDistribution = (lambda:number, x:number) => {
+	return (Math.E ** -lambda * lambda ** x) / factorial(x);
+}
+
+// returns the summation of expected frequencies and it's array.
+export const getExpectedFrequenciesAndSummation = (observedFreqSummation:number, probabilities:number[]) => {
+	let sum = 0;
+	let expectedFreqs = [];
+	for(let i = 0; i < probabilities.length; i++) {
+		expectedFreqs.push(probabilities[i] * observedFreqSummation);
+		sum += expectedFreqs[i];
+	}
+	return {expectedFreqs, sum};
+}
+
+
+
+// Calculate expected frequencies for each interval
+//data is inter arrival times or service times
+//not using this, because i dont understand it.
+export const getExpectedFrequencies = (data:number[], numIntervals:number, mean?:number) => {
+	let expectedFreqs = [];
+	const sampleMean = mean ? mean : calculateAverage(data);
+	for (let i = 0; i < numIntervals; i++) {
+		const lowerBound = i === 0 ? 0 : sampleMean * i;
+		const upperBound = sampleMean * (i + 1);
+		console.log(lowerBound, upperBound)
+		const expectedFreq = data.filter((time) => time >= lowerBound && time < upperBound).length * numIntervals;
+		expectedFreqs.push(expectedFreq);
+	}
+	return expectedFreqs;
+}
+
+export const chiSquare = (expectedFrequencies:number[], observedFrequencies:number[]) => {
+	let chiSquare = 0;
+	for (let i = 0; i < expectedFrequencies.length; i++) {	
+		chiSquare += Math.pow(observedFrequencies[i] - expectedFrequencies[i], 2) / expectedFrequencies[i];
+	}
+	return chiSquare;
+}
