@@ -77,7 +77,7 @@ const InputDistributionParameters: React.FC<IProps> = () => {
               required
               fullWidth
               variant="standard"
-              label="Mean Inter Arival"
+              label="Mean Inter Arival (min)"
             />
           </Grid>
           <Grid item sm={6} md={4}>
@@ -89,7 +89,7 @@ const InputDistributionParameters: React.FC<IProps> = () => {
               required
               fullWidth
               variant="standard"
-              label="Mean Service Time"
+              label="Mean Service Time (min)"
             />
           </Grid>
           <Grid item sm={6} md={4}>

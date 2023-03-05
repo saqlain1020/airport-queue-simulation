@@ -18,13 +18,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   wrapper: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+    gridTemplateColumns: "1fr 1fr",
     gap: 20,
     marginTop: 20,
   },
   detail: {
     fontSize: "12px !important",
-    color: "rgba(0,0,0,0.4) !important",
+    color: "rgba(255,255,255,0.4) !important",
     fontWeight: "bold !important",
   },
   value: {
@@ -45,7 +45,7 @@ const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
         Performance Measures
       </Typography>
       <div className={classes.wrapper}>
-        <Card sx={{ p: 1 }}>
+        <Card sx={{ p: 1 }} elevation={2}>
           <div className={classes.row}>
             <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
               L:
@@ -58,7 +58,7 @@ const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
             Average Customers in System
           </Typography>
         </Card>
-        <Card sx={{ p: 1 }}>
+        <Card sx={{ p: 1 }} elevation={2}>
           <div className={classes.row}>
             <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
               Lq:
@@ -71,33 +71,33 @@ const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
             Average Customers in Queue
           </Typography>
         </Card>
-        <Card sx={{ p: 1 }}>
+        <Card sx={{ p: 1 }} elevation={2}>
           <div className={classes.row}>
             <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
               W:
             </Typography>
             <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
-              {performanceMeasures?.w}
+              {performanceMeasures?.w} (min)
             </Typography>
           </div>
           <Typography align="center" className={classes.detail}>
             Average Waiting Customers in System
           </Typography>
         </Card>
-        <Card sx={{ p: 1 }}>
+        <Card sx={{ p: 1 }} elevation={2}>
           <div className={classes.row}>
             <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
               Wq:
             </Typography>
             <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
-              {performanceMeasures?.wq}
+              {performanceMeasures?.wq} (min)
             </Typography>
           </div>
           <Typography align="center" className={classes.detail}>
             Average Waiting Customers in Queue
           </Typography>
         </Card>
-        <Card sx={{ p: 1 }}>
+        {/* <Card sx={{ p: 1 }} elevation={2}>
           <div className={classes.row}>
             <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
               idle:
@@ -110,7 +110,7 @@ const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
             Average Idle Time of Server
           </Typography>
         </Card>
-        <Card sx={{ p: 1 }}>
+        <Card sx={{ p: 1 }} elevation={2}>
           <div className={classes.row}>
             <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
               P
@@ -122,7 +122,7 @@ const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
           <Typography align="center" className={classes.detail}>
             Average Utilization of server
           </Typography>
-        </Card>
+        </Card> */}
       </div>
     </Card>
   );

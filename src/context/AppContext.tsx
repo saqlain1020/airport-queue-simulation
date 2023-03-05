@@ -30,6 +30,13 @@ interface IAppContex {
   setQueueLengthServers: React.Dispatch<React.SetStateAction<Customer[][]>>;
   waitingInTheQueueServers: Customer[][];
   setWaitingInTheQueueServers: React.Dispatch<React.SetStateAction<Customer[][]>>;
+  serverSpecs: {
+    startTime: number;
+    endTime: number;
+    serviceTime: number;
+    utilization: number;
+    utilizationArr: { utilization: number; arrival: number }[];
+  }[];
 }
 
 export const AppContext = React.createContext<IAppContex>({} as IAppContex);
@@ -131,6 +138,43 @@ const AppProvider: React.FC<Props> = ({ children }) => {
     return generate(interArrivals, serviceTimes);
   };
 
+  const serverSpecs = useMemo(() => {
+    let arr: {
+      startTime: number;
+      endTime: number;
+      serviceTime: number;
+      utilization: number;
+      utilizationArr: { utilization: number; arrival: number }[];
+    }[] = [];
+    const totalServiceTime = customerRecords.reduce((prev, curr) => (prev += curr.serviceTime!), 0);
+    customerRecords.forEach((item) => {
+      if (!item.server || !item.endTime || !item.serviceTime) return;
+      const server = item.server;
+      if (!arr[server - 1]) {
+        arr[server - 1] = {
+          startTime: 0,
+          endTime: 0,
+          serviceTime: 0,
+          utilization: 0,
+          utilizationArr: [],
+        };
+      }
+      const obj = arr[server - 1];
+      obj.endTime = item.endTime;
+      obj.serviceTime += item.serviceTime;
+      obj.utilizationArr.push({ utilization: (obj.serviceTime / totalServiceTime)*100, arrival: item.arrival! });
+    });
+
+    arr = arr.map((item) => {
+      return {
+        ...item,
+        utilization: Number((item.serviceTime / totalServiceTime).toFixed(2)),
+      };
+    });
+    return arr;
+  }, [customerRecords]);
+  console.log(serverSpecs);
+
   return (
     <AppContext.Provider
       value={{
@@ -152,6 +196,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
         setQueueLengthServers,
         waitingInTheQueueServers,
         setWaitingInTheQueueServers,
+        serverSpecs,
       }}
     >
       {children}

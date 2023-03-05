@@ -47,25 +47,25 @@ const DetailsTable: React.FC<IProps> = () => {
                 <b>C</b>#
               </TableCell>
               <TableCell title="Arrival Time" align="center">
-                <b>Arrival</b>
+                <b>Arrival (min)</b>
               </TableCell>
               <TableCell title="Interarrival Time" align="center">
-                <b>Interarrival</b>
+                <b>Interarrival (min)</b>
               </TableCell>
               <TableCell  title="Service Time" align="center">
-                <b>Service</b>
+                <b>Service (min)</b>
               </TableCell>
               <TableCell title="Start Time" align="center">
-                <b>Start</b>
+                <b>Start (min)</b>
               </TableCell>
               <TableCell title="End Time" align="center">
-                <b>End</b>
+                <b>End (min)</b>
               </TableCell>
               <TableCell title="Wait Time" align="center">
-                <b>Wait</b>
+                <b>Wait (min)</b>
               </TableCell>
               <TableCell title="Turnaround Time" align="center">
-                <b>TT</b>
+                <b>TT (min)</b>
               </TableCell>
               <TableCell title="Server Number" align="center">
                 <b>Server</b>

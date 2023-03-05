@@ -12,6 +12,7 @@ import QueueLengthGraph from "../../components/Graphs/QueueLength.graph";
 import WaitingInTheQueueGraph from "../../components/Graphs/WaitingInTheQueue.graph";
 import TurnaroundTimeGraph from "../../components/Graphs/TurnaroundTime.graph";
 import ServerUtilizationGraph from "../../components/Graphs/ServerUtilization.graph";
+import Disclaimer from "../../components/Disclaimer/Disclaimer";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {

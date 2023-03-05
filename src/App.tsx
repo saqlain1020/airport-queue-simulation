@@ -5,10 +5,11 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import AppProvider from "./context/AppContext";
 import CustomDistributions from "./pages/CustomDistributions/CustomDistributions";
+import { Card, Container } from "@mui/material";
 
 function App() {
   return (
-    <AppProvider>
+    <AppProvider>      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/custom" element={<CustomDistributions />} />

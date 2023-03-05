@@ -186,3 +186,14 @@ export const separateCustomerServerWise = (customerRecords: Customer[]) => {
   //remove empty arrays and return
   return servers.filter((item) => item !== undefined || item !== null || item !== "");
 };
+
+
+// Random color generate
+export function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
