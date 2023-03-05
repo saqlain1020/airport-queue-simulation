@@ -1,8 +1,6 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
 import { Theme, Card, TableBody, TableContainer, Table, TableRow, TableHead, TableCell } from "@mui/material";
-import rData from "./../../source/data..json";
-import { Customer } from "../../interfaces/record";
 import useApp from "../../hooks/useApp";
 
 const useStyles = makeStyles((theme: Theme) => ({

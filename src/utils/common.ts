@@ -1,4 +1,5 @@
 import { Customer, InterArrivals as InterArrivalsType, ServiceTimes as ServiceTimesType } from "../interfaces/record";
+import data from "./../source/data.json";
 
 // This gives value for p
 // => p
@@ -186,37 +187,37 @@ export const separateCustomerServerWise = (customerRecords: Customer[]) => {
   return servers.filter((item) => item !== undefined || item !== null || item !== "");
 };
 
-// Random color generate
-export function getRandomColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
+// // Random color generate
+// export function getRandomColor() {
+//   var letters = "0123456789ABCDEF";
+//   var color = "#";
+//   for (var i = 0; i < 6; i++) {
+//     color += letters[Math.floor(Math.random() * 16)];
+//   }
+//   return color;
+// }
 
-// Generate random colors which contrasts with black background
-export function getRandomContrastingColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  // Check if color is dark or light
-  var c = color.substring(1); // strip #
-  var rgb = parseInt(c, 16); // convert rrggbb to decimal
-  var r = (rgb >> 16) & 0xff; // extract red
-  var g = (rgb >> 8) & 0xff; // extract green
-  var b = (rgb >> 0) & 0xff; // extract blue
+// // Generate random colors which contrasts with black background
+// export function getRandomContrastingColor() {
+//   var letters = "0123456789ABCDEF";
+//   var color = "#";
+//   for (var i = 0; i < 6; i++) {
+//     color += letters[Math.floor(Math.random() * 16)];
+//   }
+//   // Check if color is dark or light
+//   var c = color.substring(1); // strip #
+//   var rgb = parseInt(c, 16); // convert rrggbb to decimal
+//   var r = (rgb >> 16) & 0xff; // extract red
+//   var g = (rgb >> 8) & 0xff; // extract green
+//   var b = (rgb >> 0) & 0xff; // extract blue
 
-  var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+//   var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
 
-  if (luma < 40) {
-    color = getRandomContrastingColor();
-  }
-  return color;
-}
+//   if (luma < 40) {
+//     color = getRandomContrastingColor();
+//   }
+//   return color;
+// }
 
 const colors = [
   "#D0B77A",
@@ -250,4 +251,36 @@ export function* getColorGenerator() {
 const getColorGeneratorInitialized = getColorGenerator();
 export const getColor = () => {
   return getColorGeneratorInitialized.next().value!;
+};
+
+// Generate Normal distribution numbers
+export function generateNormalDistributionNumber(mean: number, stdDev: number) {
+  let u = 0;
+  let v = 0;
+  while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+  while (v === 0) v = Math.random();
+  let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+  num = num * stdDev + mean;
+  return Number(num.toFixed(1));
+}
+
+export const generateNormalDistribution = (numOfCustomers: number) => {
+  // loop till num of customers
+  let normalDistributionService: number[] = [];
+  let normalDistributionInter: number[] = [];
+  const meanService = data.shaped.reduce((acc, curr) => acc + curr.service, 0) / data.shaped.length;
+  const stdDevService = calculateStandardDeviation(
+    data.shaped.map((c) => c.service),
+    meanService
+  );
+  const meanInter = data.shaped.reduce((acc, curr) => acc + curr.interArrival, 0) / data.shaped.length;
+  const stdDevInter = calculateStandardDeviation(
+    data.shaped.map((c) => c.interArrival),
+    meanInter
+  );
+  for (let i = 0; i < numOfCustomers; i++) {
+    normalDistributionService.push(generateNormalDistributionNumber(meanService, stdDevService));
+    normalDistributionInter.push(generateNormalDistributionNumber(meanInter, stdDevInter));
+  }
+  return { normalDistributionService, normalDistributionInter };
 };

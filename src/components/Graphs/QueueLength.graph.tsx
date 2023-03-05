@@ -17,7 +17,7 @@ import useApp from "../../hooks/useApp";
 import { Customer } from "../../interfaces/record";
 import { makeStyles } from "@mui/styles";
 import { Card, Typography, Theme } from "@mui/material";
-import { getColor, getRandomColor, getRandomContrastingColor, separateCustomerServerWise } from "../../utils/common";
+import { getColor, separateCustomerServerWise } from "../../utils/common";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {},

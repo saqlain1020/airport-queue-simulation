@@ -44,24 +44,35 @@ const Home: React.FC<IProps> = () => {
           <Typography fontWeight={"bold"} variant="h5" className={classes.appHeading}>
             Airport Security Boarding Queue Simulation
           </Typography>
-          <Button
-            color="secondary"
-            variant="contained"
-            onClick={() => navigate("/custom")}
-            className={classes.appButton}
-          >
-            Custom Distributions
-          </Button>
+          <div>
+            <Button
+              color="secondary"
+              variant="contained"
+              onClick={() => navigate("/chi-square")}
+              className={classes.appButton}
+            >
+              Chi Square
+            </Button>
+            <Button
+              color="secondary"
+              variant="contained"
+              onClick={() => navigate("/custom")}
+              className={classes.appButton}
+              sx={{ml:1}}
+            >
+              Distributions
+            </Button>
+          </div>
         </Container>
       </AppBar>
       <Container sx={{ pt: "70px" }} maxWidth="lg">
         <InputParameters />
         <DetailsTable />
         <PerformanceMeasures performanceMeasures={performanceMeasures} />
-        <ServerUtilizationGraph/>
+        <ServerUtilizationGraph />
         <QueueLengthGraph />
         <WaitingInTheQueueGraph />
-        <TurnaroundTimeGraph/>
+        <TurnaroundTimeGraph />
       </Container>
     </div>
   );

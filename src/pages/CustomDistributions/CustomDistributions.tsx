@@ -34,7 +34,7 @@ const CustomDistributions: React.FC<IProps> = () => {
             Airport Security Boarding Queue Simulation
           </Typography>
           <Button color="secondary" variant="contained" onClick={() => navigate("/")} className={classes.appButton}>
-            Predefined Distribution
+            Simulation
           </Button>
         </Container>
       </AppBar>

@@ -6,6 +6,7 @@ import Home from "./pages/Home/Home";
 import AppProvider from "./context/AppContext";
 import CustomDistributions from "./pages/CustomDistributions/CustomDistributions";
 import { Card, Container } from "@mui/material";
+import ChiSquare from "./components/ChiSquare/ChiSquare";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/custom" element={<CustomDistributions />} />
+        <Route path="/chi-square" element={<ChiSquare />} />
       </Routes>
     </AppProvider>
   );

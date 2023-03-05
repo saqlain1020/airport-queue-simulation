@@ -51,5 +51,29 @@
 		{ "index": 18, "arrival": 1673065330, "service": 4, "interArrival": 360, "departure": 5.5, "waiting": 0, "server": 1 },
 		{ "index": 19, "arrival": 1673065630, "service": 3, "interArrival": 300, "departure": 5.5, "waiting": 0, "server": 1 },
 		{ "index": 20, "arrival": 1673066410, "service": 7, "interArrival": 780, "departure": 5.5, "waiting": 0, "server": 1 }
+	],	
+	"shaped":[
+		{"id":1,"service":4,"interArrival":0},
+		{"id":2,"service":4,"interArrival":3},
+		{"id":3,"service":6,"interArrival":0},
+		{"id":4,"service":4,"interArrival":12},
+		{"id":5,"service":2,"interArrival":5},
+		{"id":6,"service":9,"interArrival":1},
+		{"id":7,"service":4,"interArrival":2},
+		{"id":8,"service":3,"interArrival":4},
+		{"id":9,"service":5,"interArrival":7},
+		{"id":10,"service":9,"interArrival":6},
+		{"id":11,"service":9,"interArrival":4},
+		{"id":12,"service":2,"interArrival":3},
+		{"id":13,"service":4,"interArrival":8},
+		{"id":14,"service":8,"interArrival":1},
+		{"id":15,"service":7,"interArrival":6},
+		{"id":16,"service":6,"interArrival":5},
+		{"id":17,"service":8,"interArrival":4},
+		{"id":18,"service":4,"interArrival":6},
+		{"id":19,"service":3,"interArrival":5},
+		{"id":20,"service":7,"interArrival":13}
 	]
 }
+
+

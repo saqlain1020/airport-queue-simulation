@@ -8,6 +8,7 @@ import {
   serviceTimes as orignalServiceTime,
   calculateInterArrivalTimes,
   arrivalTimes as orignalArivalTimes,
+  generateNormalDistribution,
 } from "../utils/common";
 import { mmc_calculation } from "../utils/MMC";
 
@@ -122,6 +123,9 @@ const AppProvider: React.FC<Props> = ({ children }) => {
   };
 
   const generateArrivals = () => {
+
+    const { normalDistributionInter, normalDistributionService } = generateNormalDistribution(numberOfCustomers);
+    console.log( normalDistributionInter, normalDistributionService)
     // const serviceTimes = generateServiceTimes(numberOfCustomers);
     // const interArrivals = generateServiceTimes(numberOfCustomers);
 
@@ -136,7 +140,9 @@ const AppProvider: React.FC<Props> = ({ children }) => {
     // const interArrivals = calculateInterArrivalTimes(orignalArivalTimes);
 
     interArrivals[0] = 0;
-    return generate(interArrivals, serviceTimes);
+    
+    // return generate(interArrivals, serviceTimes);
+    return generate( normalDistributionInter, normalDistributionService);
   };
 
   const serverSpecs = useMemo(() => {

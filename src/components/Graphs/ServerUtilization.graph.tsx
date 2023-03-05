@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import useApp from "../../hooks/useApp";
-import { getColor, getRandomColor, getRandomContrastingColor, separateCustomerServerWise } from "../../utils/common";
+import { getColor } from "../../utils/common";
 import { Customer } from "../../interfaces/record";
 import { Typography, Card } from "@mui/material";
 import {
@@ -88,14 +88,7 @@ const ServerUtilizationGraph = () => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="x" type="number" name="arrival" unit="min" />
               <YAxis dataKey="y" type="number" name="utilization" unit="%">
-                <Label
-                  value="Utlilzation %"
-                  angle={-90}
-                  position="insideLeft"
-                  dx={0}
-                  dy={30}
-                  fill={getColor()}
-                />
+                <Label value="Utlilzation %" angle={-90} position="insideLeft" dx={0} dy={30} fill={getColor()} />
               </YAxis>
               <Tooltip cursor={{ strokeDasharray: "3 3" }} />
               <Legend />
