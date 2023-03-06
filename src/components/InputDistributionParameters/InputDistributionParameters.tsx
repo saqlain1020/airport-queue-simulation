@@ -23,20 +23,33 @@ const InputDistributionParameters: React.FC<IProps> = () => {
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    if (!distributionInput.meanInterArrival || !distributionInput.meanServiceTime || !distributionInput.c) return;
+    if (
+      !distributionInput.meanInterArrival ||
+      !distributionInput.meanServiceTime ||
+      !distributionInput.c ||
+      !distributionInput.min_service_time ||
+      !distributionInput.max_service_time ||
+      !distributionInput.min_interarrival_time ||
+      !distributionInput.max_interarrival_time
+    )
+      return;
     const lamda = 1 / distributionInput.meanInterArrival;
     const meu = 1 / distributionInput.meanServiceTime;
+    const service_time = (distributionInput.min_service_time + distributionInput.max_service_time) / 2;
+    const mean_service_time = 1 / service_time;
+    const interarrival_time = (distributionInput.min_interarrival_time + distributionInput.max_interarrival_time) / 2;
+    const mean_interarrival_time = 1 / interarrival_time;
     if (distribution === "mmc") {
       setPerformanceMeasures(mmc_calculation(lamda, meu, distributionInput.c));
     } else if (distribution === "mgc") {
       if (!distributionInput.variance_S) return;
-      setPerformanceMeasures(ggc_calculation(lamda, meu, distributionInput.c, "M", distributionInput.variance_S, 1));
+      setPerformanceMeasures(ggc_calculation(lamda, mean_service_time, distributionInput.c, "M", distributionInput.variance_S, 1));
     } else if (distribution === "ggc") {
       if (!distributionInput.variance_S || !distributionInput.variance_A) return;
       setPerformanceMeasures(
         ggc_calculation(
-          lamda,
-          meu,
+          mean_interarrival_time,
+          mean_service_time,
           distributionInput.c,
           "G",
           distributionInput.variance_S,
@@ -68,30 +81,34 @@ const InputDistributionParameters: React.FC<IProps> = () => {
               <MenuItem value="ggc">GGC</MenuItem>
             </TextField>
           </Grid>
-          <Grid item sm={6} md={4}>
-            <TextField
-              value={distributionInput.meanInterArrival}
-              name="meanInterArrival"
-              onChange={handleChange}
-              type="number"
-              required
-              fullWidth
-              variant="standard"
-              label="Mean Inter Arival (min)"
-            />
-          </Grid>
-          <Grid item sm={6} md={4}>
-            <TextField
-              value={distributionInput.meanServiceTime}
-              name="meanServiceTime"
-              onChange={handleChange}
-              type="number"
-              required
-              fullWidth
-              variant="standard"
-              label="Mean Service Time (min)"
-            />
-          </Grid>
+          {distribution === "mmc" && (
+            <>
+              <Grid item sm={6} md={4}>
+                <TextField
+                  value={distributionInput.meanServiceTime}
+                  name="meanServiceTime"
+                  onChange={handleChange}
+                  type="number"
+                  required
+                  fullWidth
+                  variant="standard"
+                  label="Mean Service Time (min)"
+                />
+              </Grid>
+              <Grid item sm={6} md={4}>
+                <TextField
+                  value={distributionInput.meanInterArrival}
+                  name="meanInterArrival"
+                  onChange={handleChange}
+                  type="number"
+                  required
+                  fullWidth
+                  variant="standard"
+                  label="Mean Inter Arival (min)"
+                />
+              </Grid>
+            </>
+          )}
           <Grid item sm={6} md={4}>
             <TextField
               value={distributionInput.c}
@@ -104,33 +121,75 @@ const InputDistributionParameters: React.FC<IProps> = () => {
               label="Number of Servers"
             />
           </Grid>
-          {distribution === "ggc" && (
+          {distribution === "mgc" && (
             <Grid item sm={6} md={4}>
               <TextField
-                value={distributionInput.variance_A}
-                name="variance_A"
+                value={distributionInput.meanInterArrival}
+                name="meanInterArrival"
                 onChange={handleChange}
                 type="number"
                 required
                 fullWidth
                 variant="standard"
-                label="Variance Of Inter Arrival Time"
+                label="Mean Inter Arival (min)"
               />
             </Grid>
           )}
           {(distribution === "mgc" || distribution === "ggc") && (
-            <Grid item sm={6} md={4}>
-              <TextField
-                value={distributionInput.variance_S}
-                name="variance_S"
-                onChange={handleChange}
-                type="number"
-                required
-                fullWidth
-                variant="standard"
-                label="Variance Of Service Time"
-              />
-            </Grid>
+            <>
+              <Grid item sm={6} md={4}>
+                <TextField
+                  value={distributionInput.min_service_time}
+                  name="min_service_time"
+                  onChange={handleChange}
+                  type="number"
+                  required
+                  fullWidth
+                  variant="standard"
+                  label="Min Of Service Time"
+                />
+              </Grid>
+              <Grid item sm={6} md={4}>
+                <TextField
+                  value={distributionInput.max_service_time}
+                  name="max_service_time"
+                  onChange={handleChange}
+                  type="number"
+                  required
+                  fullWidth
+                  variant="standard"
+                  label="Max Of Service Time"
+                />
+              </Grid>
+            </>
+          )}
+          {distribution === "ggc" && (
+            <>
+              <Grid item sm={6} md={4}>
+                <TextField
+                  value={distributionInput.min_interarrival_time}
+                  name="min_interarrival_time"
+                  onChange={handleChange}
+                  type="number"
+                  required
+                  fullWidth
+                  variant="standard"
+                  label="Min Of Interarrival Time"
+                />
+              </Grid>
+              <Grid item sm={6} md={4}>
+                <TextField
+                  value={distributionInput.max_interarrival_time}
+                  name="max_interarrival_time"
+                  onChange={handleChange}
+                  type="number"
+                  required
+                  fullWidth
+                  variant="standard"
+                  label="Max Of Interarrival Time"
+                />
+              </Grid>
+            </>
           )}
           <Grid item>
             <Button variant="contained" type="submit">
