@@ -15,7 +15,9 @@ interface IProps {}
 const InputDistributionParameters: React.FC<IProps> = () => {
   const classes = useStyles();
   const { distribution, setDistribution, distributionInput, setDistributionInput } = useApp();
-  const [performanceMeasures, setPerformanceMeasures] = React.useState<Partial<ReturnType<typeof ggc_calculation>>>({});
+  const [performanceMeasures, setPerformanceMeasures] = React.useState<Partial<ReturnType<typeof ggc_calculation>>>({
+
+  });
 
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = (e) => {
     setDistributionInput({ ...distributionInput, [e.target.name]: Number(e.target.value) });
@@ -24,36 +26,43 @@ const InputDistributionParameters: React.FC<IProps> = () => {
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (
-      !distributionInput.meanInterArrival ||
-      !distributionInput.meanServiceTime ||
-      !distributionInput.c ||
-      !distributionInput.min_service_time ||
-      !distributionInput.max_service_time ||
-      !distributionInput.min_interarrival_time ||
-      !distributionInput.max_interarrival_time
+      // !distributionInput.meanInterArrival ||
+      // !distributionInput.meanServiceTime ||
+      !distributionInput.c 
+      // !distributionInput.min_service_time ||
+      // !distributionInput.max_service_time ||
+      // !distributionInput.min_interarrival_time ||
+      // !distributionInput.max_interarrival_time
     )
       return;
-    const lamda = 1 / distributionInput.meanInterArrival;
-    const meu = 1 / distributionInput.meanServiceTime;
-    const service_time = (distributionInput.min_service_time + distributionInput.max_service_time) / 2;
+    const lamda = 1 / distributionInput.meanInterArrival!;
+    const meu = 1 / distributionInput.meanServiceTime!;
+    const service_time = (distributionInput.min_service_time! + distributionInput.max_service_time!) / 2;
     const mean_service_time = 1 / service_time;
-    const interarrival_time = (distributionInput.min_interarrival_time + distributionInput.max_interarrival_time) / 2;
+    const interarrival_time = (distributionInput.min_interarrival_time! + distributionInput.max_interarrival_time!) / 2;
     const mean_interarrival_time = 1 / interarrival_time;
+    const variance_service_time = Math.pow(distributionInput.max_service_time! - distributionInput.min_service_time!,2) / 12;
+    const variance_interarrival_time = Math.pow(distributionInput.max_interarrival_time!-distributionInput.min_interarrival_time!,2) / 12;
     if (distribution === "mmc") {
       setPerformanceMeasures(mmc_calculation(lamda, meu, distributionInput.c));
     } else if (distribution === "mgc") {
-      if (!distributionInput.variance_S) return;
-      setPerformanceMeasures(ggc_calculation(lamda, mean_service_time, distributionInput.c, "M", distributionInput.variance_S, 1));
+      if (!distributionInput.max_service_time && !distributionInput.min_service_time) return;
+      setPerformanceMeasures(ggc_calculation(lamda, mean_service_time, distributionInput.c, "M", variance_service_time, 1));
     } else if (distribution === "ggc") {
-      if (!distributionInput.variance_S || !distributionInput.variance_A) return;
+      if (
+        (!distributionInput.max_service_time && !distributionInput.min_service_time) ||
+        !distributionInput.max_interarrival_time ||
+        distributionInput.max_interarrival_time
+      )
+        return;
       setPerformanceMeasures(
         ggc_calculation(
           mean_interarrival_time,
           mean_service_time,
           distributionInput.c,
           "G",
-          distributionInput.variance_S,
-          distributionInput.variance_A
+          variance_service_time,
+          variance_interarrival_time
         )
       );
     }
@@ -92,7 +101,7 @@ const InputDistributionParameters: React.FC<IProps> = () => {
                   required
                   fullWidth
                   variant="standard"
-                  label="Mean Service Time (min)"
+                  label="Mean Service Time"
                 />
               </Grid>
               <Grid item sm={6} md={4}>
@@ -104,7 +113,7 @@ const InputDistributionParameters: React.FC<IProps> = () => {
                   required
                   fullWidth
                   variant="standard"
-                  label="Mean Inter Arival (min)"
+                  label="Mean Inter Arival"
                 />
               </Grid>
             </>
@@ -131,7 +140,7 @@ const InputDistributionParameters: React.FC<IProps> = () => {
                 required
                 fullWidth
                 variant="standard"
-                label="Mean Inter Arival (min)"
+                label="Mean Inter Arival"
               />
             </Grid>
           )}
