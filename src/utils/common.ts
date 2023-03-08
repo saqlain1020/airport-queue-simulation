@@ -403,7 +403,7 @@ export const getExpectedFrequencies = (data:number[], numIntervals:number, mean?
 export const chiSquare = (expectedFrequencies:number[], observedFrequencies:number[]) => {
 	let chiSquare = 0;
 	for (let i = 0; i < expectedFrequencies.length; i++) {	
-		chiSquare += Math.pow(observedFrequencies[i] - expectedFrequencies[i], 2) / expectedFrequencies[i];
+		chiSquare += Math.pow(Math.abs(observedFrequencies[i] - expectedFrequencies[i]), 2) / expectedFrequencies[i];
 	}
 	return chiSquare;
 }

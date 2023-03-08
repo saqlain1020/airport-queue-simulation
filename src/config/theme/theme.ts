@@ -91,7 +91,7 @@ let darkTheme = createTheme({
       main:"rgb(80,80,200)",
     },
     text:{
-      primary:"rgb(150,150,150)"
+      primary:"rgb(180,180,180)"
     }
   },
   breakpoints: {
