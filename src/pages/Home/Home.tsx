@@ -13,6 +13,9 @@ import WaitingInTheQueueGraph from "../../components/Graphs/WaitingInTheQueue.gr
 import TurnaroundTimeGraph from "../../components/Graphs/TurnaroundTime.graph";
 import ServerUtilizationGraph from "../../components/Graphs/ServerUtilization.graph";
 import Disclaimer from "../../components/Disclaimer/Disclaimer";
+import { getInterArrivalsFromRange, poissonInterArrivals } from "../../utils/common";
+import source from "./../../source/data.json";
+
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -36,6 +39,12 @@ const Home: React.FC<IProps> = () => {
   const classes = useStyles();
   const { performanceMeasures } = useApp();
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    // console.log('commulative probability',poissonInterArrivals(2.65))
+    console.log('inter arrivals generated',getInterArrivalsFromRange(poissonInterArrivals(source.MeanInterArival)));
+    console.log('service times generated',getInterArrivalsFromRange(poissonInterArrivals(source.MeanServiceTime)));
+  },[])
 
   return (
     <div className={classes.root}>

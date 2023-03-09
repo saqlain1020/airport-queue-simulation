@@ -73,7 +73,9 @@
 		{"id":18,"service":4,"interArrival":6},
 		{"id":19,"service":3,"interArrival":5},
 		{"id":20,"service":7,"interArrival":13}
-	]
+	],
+	"MeanInterArival": 4.75,
+	"MeanServiceTime": 5.4
 }
 
 

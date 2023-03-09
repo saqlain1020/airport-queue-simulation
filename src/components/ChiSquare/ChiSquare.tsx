@@ -18,8 +18,7 @@ import {
   MLE,
   probabilityDistribution,
 } from "../../utils/common";
-import * as jstat from "jstat";
-const jstatFns = jstat;
+
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {},

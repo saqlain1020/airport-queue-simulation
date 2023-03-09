@@ -50,11 +50,19 @@ export function calculateProbabilityOfZeroCustomersInSystem(p: number, numberOfS
   return 1 / (calcPart1() + calcPart2());
 }
 
+/** 
+ * @NOTICE changed to simple loop, because of stack overflow
+ */
 export function factorial(n: number): number {
-  if (n === 0) {
-    return 1;
+  // if (n === 0) {
+  //   return 1;
+  // }
+  // return n * factorial(n - 1);
+  let result = 1;
+  for (let i = 1; i <= n; i++) {
+    result *= i;
   }
-  return n * factorial(n - 1);
+  return result;
 }
 
 export function calcProbabilityPoisson(lambda: number, x: number) {
@@ -406,4 +414,101 @@ export const chiSquare = (expectedFrequencies:number[], observedFrequencies:numb
 		chiSquare += Math.pow(Math.abs(observedFrequencies[i] - expectedFrequencies[i]), 2) / expectedFrequencies[i];
 	}
 	return chiSquare;
+}
+
+// export const poissonInterArrivals = (lambda:number, numArrivals:number) => {
+//   const interArrivals = [];
+//   let cumulativeProbability = 0;
+
+//   function poissonCDF(k:number, lambda:number) {
+//     let sum = 0;
+//     console.log('k',k);
+//     for (let i = 0; i <= k; i++) {
+//       sum += Math.exp(-lambda) * Math.pow(lambda, i) / factorial(i);
+//     }
+//     console.log('sum',sum)
+//     return sum;
+//   }
+
+//   function factorial(n:number) {
+//     let result = 1;
+//     for (let i = 2; i <= n; i++) {
+//       result *= i;
+//     }
+//     return result;
+//   }
+
+
+//   for (let i = 0; i < numArrivals; i++) {
+//     const u = Math.random();
+//     let k = 0;
+//     console.log('u',u)
+//     while (u > cumulativeProbability) {
+//       // console.log('cumulativeProbability',cumulativeProbability);
+//       cumulativeProbability += poissonCDF(k, lambda);
+//       k++;
+//     }
+//     interArrivals.push(k - 1);
+//   }
+
+//   return interArrivals;
+// }
+
+export function poissonInterArrivals(lambda:number) {
+
+  const interArrivals = [];
+  let MaxCumulativeProbability = 1;
+  let cumulativeProbability = 0;
+  let k = 0;
+  while (MaxCumulativeProbability > cumulativeProbability) {
+    if(cumulativeProbability < 1) interArrivals.push(cumulativeProbability);
+      
+    cumulativeProbability += probabilityDistribution(lambda, k);
+    k++;
+  }
+
+  if(k === 1000) console.warn('k reached 1000, check the lambda value')
+  // console.log('interArrivals',interArrivals);
+  return interArrivals;
+
+}
+
+
+function getRangeIndex(num:number, ranges:number[][]) {
+  for (let i = 0; i < ranges.length; i++) {
+    const range = ranges[i];
+    if (num >= range[0] && num < range[1]) {
+      return i;
+    }
+  }
+  //usually this will not happen
+  //becuase we are starting from 0 and ending at most approx to 1
+  return -1; // number doesn't belong to any range
+}
+
+
+export const getInterArrivalsFromRange = (commulativeProbabilities: number[]) => {
+  // console.log('====================================');
+  const interArrivals:number[] = [];
+  /**
+   * @returns {ranges} 2D array 
+   * [
+   * [0, 0.1],
+   * [0.1, 0.2],
+   * [0.2, 0.3],
+   * ]
+   */
+  const ranges = commulativeProbabilities.map((num, i, arr) => [num, arr[i+1]]).filter(range => range[1]); // create ranges
+  
+  //generate random numbers of the same length as the commulativeProbabilities
+  const randomNumbers = commulativeProbabilities.map(() => Math.random()); // create random numbers
+  
+  // console.log('ranges',ranges);
+  // console.log('randomNumbers',randomNumbers);
+
+  //loop through the random numbers and get the index of the range where the random number belongs to
+  randomNumbers.forEach((num) => {
+    interArrivals.push(getRangeIndex(num, ranges))
+  })
+  return interArrivals;
 }

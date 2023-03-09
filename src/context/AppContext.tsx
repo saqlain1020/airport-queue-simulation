@@ -11,6 +11,7 @@ import {
   generateNormalDistribution,
 } from "../utils/common";
 import { mmc_calculation } from "../utils/MMC";
+import source from "./../source/data.json"
 
 interface IAppContex {
   numberOfCustomers: number;
@@ -54,8 +55,8 @@ interface Server {
 
 // const MeanInterArival = 12;
 // const MeanServiceTime = 15;
-const MeanInterArival = 4.75;
-const MeanServiceTime = 5.4;
+const MeanInterArival = source.MeanInterArival;
+const MeanServiceTime = source.MeanServiceTime;
 
 const AppProvider: React.FC<Props> = ({ children }) => {
   const [numberOfCustomers, setNumberOfCustomers] = React.useState(1);
