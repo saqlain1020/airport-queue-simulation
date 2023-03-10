@@ -462,12 +462,11 @@ export function poissonInterArrivals(lambda:number) {
   let k = 0;
   while (MaxCumulativeProbability > cumulativeProbability) {
     if(cumulativeProbability < MaxCumulativeProbability) interArrivals.push(cumulativeProbability);
-      console.log("pron",cumulativeProbability)
     cumulativeProbability += probabilityDistribution(lambda, k);
     k++;
     
   }
-
+  console.log("interArrivals",interArrivals)
   if(k === 1000) console.warn('k reached 1000, check the lambda value')
   // console.log('interArrivals',interArrivals);
   return interArrivals;

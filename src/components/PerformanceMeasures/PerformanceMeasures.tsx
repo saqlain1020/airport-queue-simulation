@@ -3,6 +3,7 @@ import { makeStyles } from "@mui/styles";
 import { Card, Theme, Typography } from "@mui/material";
 import useApp from "../../hooks/useApp";
 import { mmc_calculation } from "../../utils/MMC";
+import { useLocation } from "react-router";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {},
@@ -38,7 +39,9 @@ interface IProps {
 
 const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
   const classes = useStyles();
-
+  const { serverSpecs } = useApp();
+  const location = useLocation();
+  console.log(location.pathname);
   return (
     <Card sx={{ p: 2, mt: 2 }} className={classes.root}>
       <Typography fontWeight={"bold"} variant="h5">
@@ -97,6 +100,19 @@ const PerformanceMeasures: React.FC<IProps> = ({ performanceMeasures }) => {
             Average Waiting Customers in Queue
           </Typography>
         </Card>
+        {location.pathname === "/" &&
+          serverSpecs.map((server, i) => (
+            <Card key={i} sx={{ p: 1 }} elevation={2}>
+              <div className={classes.row}>
+                <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>
+                  Utlization Server {i + 1}:
+                </Typography>
+                <Typography variant="h6" fontWeight={"bold"} className={classes.value}>
+                  {server.utilization}
+                </Typography>
+              </div>
+            </Card>
+          ))}
         {/* <Card sx={{ p: 1 }} elevation={2}>
           <div className={classes.row}>
             <Typography variant="h6" fontWeight={"bold"} className={classes.subHeading}>

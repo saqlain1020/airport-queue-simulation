@@ -13,7 +13,7 @@ import {
   getInterArrivalsFromRange,
 } from "../utils/common";
 import { mmc_calculation } from "../utils/MMC";
-import source from "./../source/data.json"
+import source from "./../source/data.json";
 
 interface IAppContex {
   numberOfCustomers: number;
@@ -126,25 +126,22 @@ const AppProvider: React.FC<Props> = ({ children }) => {
   };
 
   const generateArrivals = () => {
-
     // const { normalDistributionInter, normalDistributionService } = generateNormalDistribution(numberOfCustomers);
     // console.log( normalDistributionInter, normalDistributionService)
     // const serviceTimes = generateServiceTimes(numberOfCustomers);
     // const interArrivals = generateServiceTimes(numberOfCustomers);
 
-
-    const interArrivals: number[] = [0,...getInterArrivalsFromRange(poissonInterArrivals(source.MeanInterArival))];
+    const interArrivals: number[] = [0, ...getInterArrivalsFromRange(poissonInterArrivals(source.MeanInterArival))];
     const serviceTimes: number[] = [];
     for (let i = 0; i < interArrivals.length; i++) {
       // interArrivals.push(generateRandomExponential(MeanInterArival));
       serviceTimes.push(generateRandomExponential(MeanServiceTime));
     }
-    
+
     // interArrivals[0] = 0;
     // const serviceTimes = orignalServiceTime;
     // const interArrivals = calculateInterArrivalTimes(orignalArivalTimes);
 
-    
     return generate(interArrivals, serviceTimes);
     // return generate( normalDistributionInter, normalDistributionService);
   };
@@ -157,7 +154,16 @@ const AppProvider: React.FC<Props> = ({ children }) => {
       utilization: number;
       utilizationArr: { utilization: number; arrival: number }[];
     }[] = [];
-    const totalServiceTime = customerRecords.reduce((prev, curr) => (prev += curr.serviceTime!), 0);
+
+    // const totalServiceTime = customerRecords.reduce((prev, curr) => (prev += curr.serviceTime!), 0);
+    // @ts-ignore
+    const totalEndtimeServers: { [key: number]: number } = customerRecords.reduce((acc, curr) => {
+      // @ts-ignore
+        acc[curr.server] = curr.endTime;
+      return acc;
+    }, {});
+
+    const totalEndtime = Object.values(totalEndtimeServers).reduce((prev, curr) => (prev += curr), 0);
     customerRecords.forEach((item) => {
       if (!item.server || !item.endTime || !item.serviceTime) return;
       const server = item.server;
@@ -173,13 +179,13 @@ const AppProvider: React.FC<Props> = ({ children }) => {
       const obj = arr[server - 1];
       obj.endTime = item.endTime;
       obj.serviceTime += item.serviceTime;
-      obj.utilizationArr.push({ utilization: (obj.serviceTime / totalServiceTime) * 100, arrival: item.arrival! });
+      obj.utilizationArr.push({ utilization: (obj.serviceTime / totalEndtime) * 100, arrival: item.arrival! });
     });
 
     arr = arr.map((item) => {
       return {
         ...item,
-        utilization: Number((item.serviceTime / totalServiceTime).toFixed(2)),
+        utilization: Number((item.serviceTime / totalEndtime).toFixed(2)),
       };
     });
     return arr;

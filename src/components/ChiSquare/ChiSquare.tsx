@@ -58,11 +58,9 @@ const ChiSquare: React.FC<IProps> = () => {
     // Here, numIntervals represents the number of intervals to use for the chi-squared test.
     //We are using 5 intervals in this case.
     const numIntervals = 5;
-    console.log("ineer", interArrivals);
 
     const interArrivalObservedFreqs = chiSquareObservedFreqs(interArrivals, numIntervals);
     const serviceTimeObservedFreqs = chiSquareObservedFreqs(serviceTimes, numIntervals);
-    console.log(serviceTimeObservedFreqs);
     const observedFrequenciesSummation1 = interArrivalObservedFreqs.reduce((acc, el) => acc + el, 0); //inter arrival
     const observedFrequenciesSummation2 = serviceTimeObservedFreqs.reduce((acc, el) => acc + el, 0); //service time
 
@@ -158,11 +156,11 @@ const ChiSquare: React.FC<IProps> = () => {
             Chi-Square Test
           </Typography>
           <Typography sx={{ mt: 2 }} color="white">
-            <b>Inter Arrival Time</b>
+            <b>Inter Arrival Time Calculated Value</b>
           </Typography>
           <Typography>{chiSquareState.interArrival}</Typography>
           <Typography color="white">
-            <b>Service Time</b>
+            <b>Service Time Calculated Value</b>
           </Typography>
           <Typography>{chiSquareState.serviceTime}</Typography>
           <Typography color="white">
