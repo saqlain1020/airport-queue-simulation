@@ -9,6 +9,8 @@ import {
   calculateInterArrivalTimes,
   arrivalTimes as orignalArivalTimes,
   generateNormalDistribution,
+  poissonInterArrivals,
+  getInterArrivalsFromRange,
 } from "../utils/common";
 import { mmc_calculation } from "../utils/MMC";
 import source from "./../source/data.json"
@@ -125,25 +127,26 @@ const AppProvider: React.FC<Props> = ({ children }) => {
 
   const generateArrivals = () => {
 
-    const { normalDistributionInter, normalDistributionService } = generateNormalDistribution(numberOfCustomers);
-    console.log( normalDistributionInter, normalDistributionService)
+    // const { normalDistributionInter, normalDistributionService } = generateNormalDistribution(numberOfCustomers);
+    // console.log( normalDistributionInter, normalDistributionService)
     // const serviceTimes = generateServiceTimes(numberOfCustomers);
     // const interArrivals = generateServiceTimes(numberOfCustomers);
 
+
+    const interArrivals: number[] = [0,...getInterArrivalsFromRange(poissonInterArrivals(source.MeanInterArival))];
     const serviceTimes: number[] = [];
-    const interArrivals: number[] = [];
-    for (let i = 0; i < numberOfCustomers; i++) {
-      interArrivals.push(generateRandomExponential(MeanInterArival));
+    for (let i = 0; i < interArrivals.length; i++) {
+      // interArrivals.push(generateRandomExponential(MeanInterArival));
       serviceTimes.push(generateRandomExponential(MeanServiceTime));
     }
-
+    
+    // interArrivals[0] = 0;
     // const serviceTimes = orignalServiceTime;
     // const interArrivals = calculateInterArrivalTimes(orignalArivalTimes);
 
-    interArrivals[0] = 0;
     
-    // return generate(interArrivals, serviceTimes);
-    return generate( normalDistributionInter, normalDistributionService);
+    return generate(interArrivals, serviceTimes);
+    // return generate( normalDistributionInter, normalDistributionService);
   };
 
   const serverSpecs = useMemo(() => {

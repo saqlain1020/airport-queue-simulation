@@ -27,7 +27,7 @@ const InputParameters: React.FC<IProps> = () => {
         Input Parameters
       </Typography>
       <Grid container spacing={2} sx={{ pt: 2 }}>
-        <Grid item xs={12} sm={6} md={4}>
+        {/* <Grid item xs={12} sm={6} md={4}>
           <TextField
             type={"number"}
             fullWidth
@@ -36,8 +36,8 @@ const InputParameters: React.FC<IProps> = () => {
             value={numberOfCustomers}
             onChange={(e) => setNumberOfCustomers(Number(e.target.value))}
           />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        </Grid> */}
+        <Grid item xs={12} sm={6} md={6}>
           <TextField
             fullWidth
             select
@@ -53,7 +53,7 @@ const InputParameters: React.FC<IProps> = () => {
             <MenuItem value={0}>Instant</MenuItem>
           </TextField>
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} md={6}>
           <TextField
             fullWidth
             type="number"

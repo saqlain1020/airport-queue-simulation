@@ -40,12 +40,6 @@ const Home: React.FC<IProps> = () => {
   const { performanceMeasures } = useApp();
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    // console.log('commulative probability',poissonInterArrivals(2.65))
-    console.log('inter arrivals generated',getInterArrivalsFromRange(poissonInterArrivals(source.MeanInterArival)));
-    console.log('service times generated',getInterArrivalsFromRange(poissonInterArrivals(source.MeanServiceTime)));
-  },[])
-
   return (
     <div className={classes.root}>
       <AppBar sx={{ p: 1 }}>

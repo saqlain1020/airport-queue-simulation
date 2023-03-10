@@ -457,14 +457,15 @@ export const chiSquare = (expectedFrequencies:number[], observedFrequencies:numb
 export function poissonInterArrivals(lambda:number) {
 
   const interArrivals = [];
-  let MaxCumulativeProbability = 1;
+  let MaxCumulativeProbability = 0.99999;
   let cumulativeProbability = 0;
   let k = 0;
   while (MaxCumulativeProbability > cumulativeProbability) {
-    if(cumulativeProbability < 1) interArrivals.push(cumulativeProbability);
-      
+    if(cumulativeProbability < MaxCumulativeProbability) interArrivals.push(cumulativeProbability);
+      console.log("pron",cumulativeProbability)
     cumulativeProbability += probabilityDistribution(lambda, k);
     k++;
+    
   }
 
   if(k === 1000) console.warn('k reached 1000, check the lambda value')
