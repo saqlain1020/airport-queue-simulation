@@ -88,10 +88,19 @@ let darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary:{
-      main:"rgb(80,80,200)",
+      // main:"rgb(80,80,200)",
+      main:"#EFA618",
+    },
+    secondary:{
+      main: "#1B469E"
     },
     text:{
-      primary:"rgb(180,180,180)"
+      // primary:"rgb(180,180,180)"
+      primary:"rgb(200,200,200)"
+    },
+    background:{
+      default:"#081C30",
+      paper:"#040C14",
     }
   },
   breakpoints: {
@@ -147,10 +156,29 @@ let darkTheme = createTheme({
       styleOverrides: {
         root: {
           // boxShadow: "rgba(255, 255, 200, 0.1) 0px 7px 29px 0px",
+          background:"#040C14",
           borderRadius: 10,
         },
+        
       },
+      variants:[
+        {
+          props:{elevation:2},
+          style:{
+            background:"#121B25"
+          }
+        }
+      ]
     },
+    MuiAppBar:{
+      styleOverrides:{
+        root:{
+          background:"transparent",
+          // filter: "blur(10px)",
+          backdropFilter: "blur(10px) brightness(0.8)",
+        }
+      }
+    }
   },
   boxShadows: ["0px 10px 25px rgba(255,255,255,0.1)"],
 });

@@ -131,11 +131,13 @@ const AppProvider: React.FC<Props> = ({ children }) => {
     // const serviceTimes = generateServiceTimes(numberOfCustomers);
     // const interArrivals = generateServiceTimes(numberOfCustomers);
 
-    const interArrivals: number[] = [0, ...getInterArrivalsFromRange(poissonInterArrivals(source.MeanInterArival))];
-    const serviceTimes: number[] = [];
+    const interArrivals: number[] = [...getInterArrivalsFromRange(poissonInterArrivals(source.MeanInterArival))];
+    // const serviceTimes: number[] = [];
+    const serviceTimes: number[] = [...getInterArrivalsFromRange(poissonInterArrivals(source.MeanServiceTime))];
+    interArrivals[0] = 0
     for (let i = 0; i < interArrivals.length; i++) {
       // interArrivals.push(generateRandomExponential(MeanInterArival));
-      serviceTimes.push(generateRandomExponential(MeanServiceTime));
+      // serviceTimes.push(generateRandomExponential(MeanServiceTime));
     }
 
     // interArrivals[0] = 0;
