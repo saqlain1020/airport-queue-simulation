@@ -34,7 +34,7 @@ let lightTheme = createTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          fontFamily: "'Raleway', sans-serif",
+          fontFamily: "'Inter custom', sans-serif",
         },
       },
     },
@@ -116,7 +116,7 @@ let darkTheme = createTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          fontFamily: "'Raleway', sans-serif",
+          fontFamily: "'Inter custom', sans-serif",
         },
       },
     },
