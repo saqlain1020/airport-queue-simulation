@@ -116,7 +116,7 @@ let darkTheme = createTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          fontFamily: "'Josefin Sans', sans-serif",
+          fontFamily: "'Raleway', sans-serif",
         },
       },
     },
