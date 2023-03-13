@@ -12,11 +12,11 @@ const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: "rgb(250,250,250)",
     color: "black",
-    fontSize:'20px'
+    fontSize:'18px'
   },
 }));
 
-const CustomTooltip = ({ active, payload, label }:any) => {
+const CustomTooltip = ({ active, payload }:any) => {
 const classes = useStyles();
 if (active && payload && payload.length) {
   return (
@@ -68,11 +68,7 @@ const TurnaroundTimeGraph = () => {
                       fill={getColor()}
                     />
                   </YAxis>
-                  {/* <Tooltip contentStyle={{ backgroundColor: "rgb(250,250,250)", color: "black" }}  /> */}
-                  <Tooltip
-                    content={<CustomTooltip />}
-                    contentStyle={{ backgroundColor: "rgb(250,250,250)", color: "black" }}
-                  />
+                  <Tooltip content={<CustomTooltip />} />
                   <Legend verticalAlign="top" align="right" iconType={"circle"} iconSize={10} />
                   <Bar name="Turnaround Time" type="monotone" dataKey="turnaroundTime" stroke="red" fill="#8884d8" />
                 </BarChart>
