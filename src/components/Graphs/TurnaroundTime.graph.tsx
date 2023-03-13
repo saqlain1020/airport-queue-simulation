@@ -4,6 +4,30 @@ import { Typography, Card } from "@mui/material";
 import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, Label } from "recharts";
 import { v4 as uuid } from "uuid";
 import { getColor } from "../../utils/common";
+import { makeStyles } from "@mui/styles";
+
+
+
+const useStyles = makeStyles(() => ({
+  root: {
+    backgroundColor: "rgb(250,250,250)",
+    color: "black",
+    fontSize:'20px'
+  },
+}));
+
+const CustomTooltip = ({ active, payload, label }:any) => {
+const classes = useStyles();
+if (active && payload && payload.length) {
+  return (
+    <div className={classes.root}>
+      <div>Customer No: {payload[0].payload.id}</div>
+      <div>Turnaround Time: {payload[0].payload.turnaroundTime}</div>
+    </div>
+  );
+}
+return null;
+};
 
 const TurnaroundTimeGraph = () => {
   const { customerRecords, waitingInTheQueueServers } = useApp();
@@ -32,13 +56,23 @@ const TurnaroundTimeGraph = () => {
                 <BarChart width={600} height={300} data={server}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="id" unit="# Customer" name="Customer Number" type="category">
-
                     {/* <Label value="Customer#" angle={0} position="centerBottom" dy={15}  fill={getColor()} /> */}
                   </XAxis>
-                  <YAxis dataKey="turnaroundTime"  unit="mins" name="turnaround" type="number">
-                    <Label value="Turnaround Time" angle={-90} position="insideLeft" dx={-5} dy={30} fill={getColor()} />
+                  <YAxis dataKey="turnaroundTime" unit="mins" name="turnaround" type="number">
+                    <Label
+                      value="Turnaround Time"
+                      angle={-90}
+                      position="insideLeft"
+                      dx={-5}
+                      dy={30}
+                      fill={getColor()}
+                    />
                   </YAxis>
-                  <Tooltip contentStyle={{ backgroundColor: "rgb(250,250,250)", color: "black" }}  />
+                  {/* <Tooltip contentStyle={{ backgroundColor: "rgb(250,250,250)", color: "black" }}  /> */}
+                  <Tooltip
+                    content={<CustomTooltip />}
+                    contentStyle={{ backgroundColor: "rgb(250,250,250)", color: "black" }}
+                  />
                   <Legend verticalAlign="top" align="right" iconType={"circle"} iconSize={10} />
                   <Bar name="Turnaround Time" type="monotone" dataKey="turnaroundTime" stroke="red" fill="#8884d8" />
                 </BarChart>
