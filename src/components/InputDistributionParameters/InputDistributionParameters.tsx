@@ -15,9 +15,7 @@ interface IProps {}
 const InputDistributionParameters: React.FC<IProps> = () => {
   const classes = useStyles();
   const { distribution, setDistribution, distributionInput, setDistributionInput } = useApp();
-  const [performanceMeasures, setPerformanceMeasures] = React.useState<Partial<ReturnType<typeof ggc_calculation>>>({
-
-  });
+  const [performanceMeasures, setPerformanceMeasures] = React.useState<Partial<ReturnType<typeof ggc_calculation>>>({});
 
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = (e) => {
     setDistributionInput({ ...distributionInput, [e.target.name]: Number(e.target.value) });
@@ -28,7 +26,7 @@ const InputDistributionParameters: React.FC<IProps> = () => {
     if (
       // !distributionInput.meanInterArrival ||
       // !distributionInput.meanServiceTime ||
-      !distributionInput.c 
+      !distributionInput.c
       // !distributionInput.min_service_time ||
       // !distributionInput.max_service_time ||
       // !distributionInput.min_interarrival_time ||
@@ -41,18 +39,23 @@ const InputDistributionParameters: React.FC<IProps> = () => {
     const mean_service_time = 1 / service_time;
     const interarrival_time = (distributionInput.min_interarrival_time! + distributionInput.max_interarrival_time!) / 2;
     const mean_interarrival_time = 1 / interarrival_time;
-    const variance_service_time = Math.pow(distributionInput.max_service_time! - distributionInput.min_service_time!,2) / 12;
-    const variance_interarrival_time = Math.pow(distributionInput.max_interarrival_time!-distributionInput.min_interarrival_time!,2) / 12;
+    const variance_service_time =
+      Math.pow(distributionInput.max_service_time! - distributionInput.min_service_time!, 2) / 12;
+    const variance_interarrival_time =
+      Math.pow(distributionInput.max_interarrival_time! - distributionInput.min_interarrival_time!, 2) / 12;
     if (distribution === "mmc") {
       setPerformanceMeasures(mmc_calculation(lamda, meu, distributionInput.c));
     } else if (distribution === "mgc") {
       if (!distributionInput.max_service_time && !distributionInput.min_service_time) return;
-      setPerformanceMeasures(ggc_calculation(lamda, mean_service_time, distributionInput.c, "M", variance_service_time, 1));
+      setPerformanceMeasures(
+        ggc_calculation(lamda, mean_service_time, distributionInput.c, "M", variance_service_time, 1)
+      );
     } else if (distribution === "ggc") {
       if (
-        (!distributionInput.max_service_time && !distributionInput.min_service_time) ||
+        !distributionInput.max_service_time ||
+        !distributionInput.min_service_time ||
         !distributionInput.max_interarrival_time ||
-        distributionInput.max_interarrival_time
+        !distributionInput.min_interarrival_time
       )
         return;
       setPerformanceMeasures(
