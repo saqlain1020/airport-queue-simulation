@@ -43,7 +43,7 @@ const ChiSquare: React.FC<IProps> = () => {
   const [chiSquareState, setChiSquare] = useState({
     interArrival: 0,
     serviceTime: 0,
-    critical: 9.49,
+    critical: 7.8147,
   });
 
   /**
