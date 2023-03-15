@@ -55,15 +55,15 @@ const TurnaroundTimeGraph = () => {
               <ResponsiveContainer width="100%" aspect={3}>
                 <BarChart width={600} height={300} data={server}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="id" unit="# Customer" name="Customer Number" type="category">
-                    {/* <Label value="Customer#" angle={0} position="centerBottom" dy={15}  fill={getColor()} /> */}
+                  <XAxis dataKey="id" unit="C" name="Customer Number" type="category">
+                    <Label value="Customer#" angle={0} position="centerBottom" dy={13}  fill={getColor()} />
                   </XAxis>
                   <YAxis dataKey="turnaroundTime" unit="mins" name="turnaround" type="number">
                     <Label
                       value="Turnaround Time"
                       angle={-90}
                       position="insideLeft"
-                      dx={-5}
+                      dx={-2}
                       dy={30}
                       fill={getColor()}
                     />

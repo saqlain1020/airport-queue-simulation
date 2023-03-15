@@ -48,10 +48,10 @@ const calc_idle = (rho: number) => {
 export const mmc_calculation = (lambda: number, meu: number, c: number) => {
   let p = lambda / (c * meu);
   let p0 = calc_P0(p, c);
-  let lq = lq_mmc(p, lambda, meu, p0, c);
-  let wq = calc_Wq(lq, lambda);
-  let w = calc_W(wq, meu);
-  let l = calc_L(w, lambda);
+  let lq = Math.abs(lq_mmc(p, lambda, meu, p0, c));
+  let wq = Math.abs(calc_Wq(lq, lambda));
+  let w = Math.abs(calc_W(wq, meu));
+  let l = Math.abs(calc_L(w, lambda));
   let idle = calc_idle(p);
 
   let obj = {
