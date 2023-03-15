@@ -77,7 +77,7 @@ export const ggc_calculation = (
   };
   for (let key in obj) {
     // @ts-ignore
-    obj[key] = obj[key].toFixed(3);
+    obj[key] = Math.abs(obj[key]).toFixed(3);
   }
 
   return obj;
