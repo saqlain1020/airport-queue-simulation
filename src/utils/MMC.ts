@@ -20,6 +20,7 @@ const calc_P0 = (p: number, c: number) => {
   return p0;
 };
 
+//M/M/2
 const lq_mmc = (rho: number, lambda: number, meu: number, p0: number, c: number) => {
   let lq = (p0 * (lambda / meu) ** c * rho) / (factorialize(c) * (1 - rho) ** 2);
   return lq;
